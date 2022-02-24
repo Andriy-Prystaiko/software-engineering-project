@@ -1,0 +1,44 @@
+Meeting 01 - Thursday, January 27, 2022 | 11: 30am – 3:00pm (Virtual)
+ATTENDANCE : Everyone
+•	Went over Lab 1B
+•	Set up repository
+•	Set up IntelliJ
+•	Ran into issue finishing Docker setup
+•	Install Java
+•	Setup Version Control
+
+Meeting 02 – Friday, January 28, 2022 | 2:20pm – 3:00pm (In-Person)
+ATTENDANCE : Sid, Tyler, Andrew
+•	Distributed workflow to team members
+•	Created the Code of Conduct
+
+Meeting 03 – Saturday, January 29, 2022 | 11:30am – 1:30pm (Virtual)
+ATTENDANCE : Sid, Tyler, Yaksh
+•	Brought whole group up to speed and synchronized progress (primarily Docker)
+•	Introduced and discussed how to make a task board within GitHub
+•	Approved the Code of Conduct
+
+Meeting 04 – Monday, January 31, 2022 | 1:30pm – 3:30pm (Virtual)
+ATTENDANCE : Yaksh, Tyler, Andrew
+•	Created meeting log
+•	Created the Product Backlog
+•	Discussed overall idea of the project
+•	Reviewed first sprint submission requirements and brought ourselves into adherence of rubric
+•	Reviewed the Task Board
+
+Meeting 05 – Tuesday, Febuary 1, 2022 | 1:30pm – 2:00pm (Person)
+ATTENDANCE : Everyone
+•	Rename the branches on Git-Hub
+•	Transfer The Control of Repository to Andrew
+•	Decided on Submission Schedule
+
+Meeting 06 – Thursday, February 3, 2022 | 10:00am - 12:30pm / 3:30pm - 5:30pm (Virtual)
+ATTENDANCE : Everyone
+•	Created Docker file
+•	Tested Docker file on Different clients
+•	Finalizing sprint 1
+•	Creation of User Persona
+
+Meeting 08 – Tuesday, February 8, 2022 | 1:30pm - 2:00pm (In-Person)
+ATTENDANCE : Everyone
+•	Sharing the presentation parts between everyone for meeting.
