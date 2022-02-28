@@ -1,0 +1,16 @@
+{
+  "name": "geopop",
+  "version": "1.0.0",
+  "description": "Geopop App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Code Troopers",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "pug": "^3.0.2"
+  }
+}
