@@ -26,7 +26,7 @@ ATTENDANCE : Yaksh, Tyler, Andrew
 •	Reviewed first sprint submission requirements and brought ourselves into adherence of rubric
 •	Reviewed the Task Board
 
-Meeting 05 – Tuesday, Febuary 1, 2022 | 1:30pm – 2:00pm (Person)
+Meeting 05 – Tuesday, Febuary 1, 2022 | 1:30pm – 2:00pm (In-Person)
 ATTENDANCE : Everyone
 •	Rename the branches on Git-Hub
 •	Transfer The Control of Repository to Andrew
@@ -39,34 +39,40 @@ ATTENDANCE : Everyone
 •	Finalizing sprint 1
 •	Creation of User Persona
 
-Meeting 08 – Tuesday, February 8, 2022 | 1:30pm - 2:00pm (In-Person)
+Meeting 07 – Tuesday, February 8, 2022 | 1:30pm - 2:00pm (In-Person)
 ATTENDANCE : Everyone
 •	Sharing the presentation parts between everyone for meeting.
 
-Meeting 09 –Wednesday , February 16, 2022 | 12:00pm - 1:45pm(Person)
+Meeting 08 –Wednesday , February 16, 2022 | 12:00pm - 1:45pm (In-Person)
 ATTENDANCE : Tyler , Sid , Yaksh
 •	Dividing work for sprint 2
 
-
-Meeting 10 –Thursday , February 17, 2022 | 12:00pm - 2:00pm(virtual)
+Meeting 09 –Thursday , February 17, 2022 | 12:00pm - 2:00pm (Virtual)
 ATTENDANCE : Andrew , Tyler , Sid
 •	Set up Zube with GitHub integration
 •	Go over use case diagram
 •	Defined use cases 
 
-Meeting 11 –Monday , February 21, 2022 | 12:00pm - 12:30pm(virtual)
+Meeting 10 –Monday , February 21, 2022 | 12:00pm - 12:30pm (Virtual)
 ATTENDANCE : Everyone
 •	Reviewed and modified the Use case diagram
 •	Finalize for sprint 2 Contents 
 •	Explored and approved the Zube contents 
 
-Meeting 12 –Tuesday , February 22, 2022 | 1:30pm - 2:00pm(Person)
+Meeting 11 –Tuesday , February 22, 2022 | 1:30pm - 2:00pm (In-Person)
 ATTENDANCE : : Andrew , Tyler , Sid
 •	Approved Use case diagram
 
-Meeting 13 –Monday , February 28, 2022 | 12:00pm - 1:00pm(Virtual)
-ATTENDANCE : Tyler , Sid
+Meeting 12 – Monday , February 28, 2022 | 12:00pm - 1:00pm (Virtual)
+ATTENDANCE: Tyler, Sid
 •	Started On sprint 3
+
+Meeting 13 - Thursday, March 3, 2022 | 11:00am - 11:40am (Virtual)
+ATTENDANCE: Yaksh, Sid, Tyler
+•	Discussed creating and utilizing more diagrams for our app (state, behavioral)
+•	Prepared creating and linking the MYSQL Database with app.js
+
+
 
 
 
