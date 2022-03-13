@@ -84,6 +84,11 @@ ATTENDANCE :  Tyler , Andrew,Sid
 •	Dividing Sprint 3 Taskes between Team.
 
 
+Meeting 16 – Sunday , March 13, 2022 | 2:00pm - 4:00pm(Virtual)
+ATTENDANCE :  Tyler ,Sid, Yaksh
+•	Created World data-base along with its respective tables
+•	Linking Data-base with the Application.
+
 
 
 
