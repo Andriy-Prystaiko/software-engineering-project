@@ -89,6 +89,11 @@ ATTENDANCE :  Tyler ,Sid, Yaksh
 •	Created World data-base along with its respective tables
 •	Linking Data-base with the Application.
 
+Meeting 17 – Monday , March 14, 2022 | 12:00pm - 1pm(Virtual)
+ATTENDANCE :  Tyler, Andriy
+•	Discused Enviroment file and its creation
+•	Created DockerCompose.YMl
+
 
 
 
