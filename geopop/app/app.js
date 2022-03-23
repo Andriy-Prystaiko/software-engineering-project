@@ -8,7 +8,7 @@ const path = require('path');
 var app = express();
 
 // Add static files location
-app.use(express.static("static"));
+//app.use(express.static("static"));
 
 // Use the Pug templating engine
 app.set('view engine', 'pug');
