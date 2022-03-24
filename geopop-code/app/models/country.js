@@ -43,3 +43,8 @@ class Country {
         }
     }
 }
+
+// Allow the Country class to be accessible across our code
+module.exports = {
+    Country
+}
