@@ -4,11 +4,7 @@ const express = require("express");
 const path = require('path');
 
 // Assign a variable to the express function.
-//const app = express();
 var app = express();
-
-// Add static files location
-//app.use(express.static("static"));
 
 // Use the Pug templating engine
 app.set('view engine', 'pug');
