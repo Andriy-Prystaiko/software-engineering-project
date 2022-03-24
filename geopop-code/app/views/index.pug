@@ -1,76 +1,12 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0") 
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+extends layout
+block content
+    .main-content
+    <!-- Construct a rectangle-like structure on top of the webpage -->
+    div(class="container text-center")
+        <!-- Align the header in the center of the document -->
+        div(class="py-4 bg-dark text-light rounded" style="text-align:center")
+            <!-- Place the Globe icon next to the 'Geopop' Header -->
+            h1(i class="fa fa-globe" aria-hidden="true" style="font-size:50px")  Geopop
 
-        <!-- Have the little website tab be named after our application --> 
-        title Geopop - Kamino Softworks
-
-        <!-- In order to use Font Awesome icons, I pasted the link presented below -->
-        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
-        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
-        
-    head
-    body
-    main
-        <!-- Construct a rectangle-like structure on top of the webpage -->
-        div(class="container text-center")
-            <!-- Align the header in the center of the document -->
-            div(class="py-4 bg-dark text-light rounded" style="text-align:center")
-                <!-- Place the Globe icon next to the 'Geopop' Header -->
-                h1(i class="fa fa-globe" aria-hidden="true" style="font-size:50px")  Geopop
-
-            <!-- Construct a Country text box -->
-            div(class="d-flex justify-content-center")
-                form(action="" method="post" class="w-50")
-                    div(class="pt-2")
-                        div(class="input-group mb-2")
-                            div(class="input-group-prepend")
-                                <!-- Add icon next to the textbox -->
-                                div(class="input-group-text bg-warning" i class="fa fa-map-marker" aria-hidden="true") 
-                            input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Country")
-
-                    div(class="row pt-2")
-                        div(class="col")
-                            div(class="input-group mb-2")
-                                div(class="input-group-prepend")
-                                    <!-- Add icon next to the textbox -->
-                                    div(class="input-group-text bg-warning" i class="fa fa-sort-numeric-desc" aria-hidden="true") 
-                                input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Rank")
-                        div(class="col")
-                            div(class="input-group mb-2")
-                                div(class="input-group-prepend")
-                                    <!-- Add icon next to the textbox -->
-                                    div(class="input-group-text bg-warning" i class="fa fa-sort" aria-hidden="true") 
-                                input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Order")
-
-                    <!-- Let's create some buttons -->
-                    div(class="d-flex justify-content-center")
-                        - const bStyles = {"margin": "1.5em 0.6em", "padding": "0.5em 2.4em"};
-                        button(style=bStyles id="btn-delete" class="btn btn-danger" i class="fa fa-trash" aria-hidden="true" name="delete" dat-toggle="tooltip" data-placement="bottom" title="Delete") 
-                        button(style=bStyles id="btn-save" class="btn btn-info" i class="fa fa-floppy-o" aria-hidden="true" name="save" dat-toggle="tooltip" data-placement="bottom" title="Save") 
-                        button(style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
-
-            <!-- Bootstrap table -->
-            div(class="d-flex table-data")
-                - const tStyles = {"margin": "1em 10em"};
-                table(style=tStyles class="table table-striped table-dark")
-                    thead(class="thead-dark")
-                        tr
-                            th Code
-                            th Name
-                            th Continent
-                            th Region
-                            th Population
-                            th Capital
-                    tbody(id="tbody")
-
-                        
-    <!-- Adding Bootstrap components (jQuery, Popper.js) to our application -->
-    <!-- These components will be utilized for our more interactive features and designs -->
-    script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
-    script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
-    script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
-html
+        a(href='/country-report/')
+            button(type="submit") Country Report
