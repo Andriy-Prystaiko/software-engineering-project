@@ -1,5 +1,5 @@
 // Bring in our express module.
-const express = require('express');
+const express = require("express");
 // Bring in the path module.
 const path = require('path');
 
@@ -29,7 +29,7 @@ app.get('/country-report', function(req, res) {
     var country = new Country('');
     // Render in the country page through the country.pug view
     // Also, enable access to student values within country.pug
-    res.render('country', {student:student});
+    res.render('country', {country:country});
 });
 
 app.post('/received-response', async function (req, res) {
