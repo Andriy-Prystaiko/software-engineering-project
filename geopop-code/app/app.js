@@ -37,7 +37,7 @@ function isEmpty(obj) {
     return true;
 }
 
-app.get('/country-report', function(req, res) {
+app.get('/country-report', async function(req, res) {
     // Initialize the cookies that hold an object with all 
     // the cookie key-values pairs
     const cookies = req.cookies;
