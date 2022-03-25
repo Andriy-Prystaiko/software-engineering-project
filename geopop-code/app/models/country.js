@@ -43,14 +43,16 @@ class Country {
         }
     }
 
+    // Get the countries by ranking order
     async rankCountryByPopulation() {
         var sql = "SELECT Code, Name, Continent, Region, Population, Capital \
         FROM country \
         ORDER BY Population DESC \
         LIMIT ?"
-        
+        // Pass the response through the mySQL query
         const results = await db.query(sql, [this.response]);
-
+        // Iterate through the 'results' to receive the data of the country
+        // on the final iteration
         for (let i = 0; i < results.length; i++) {
             this.countryCode = results[i].Code
             this.countryName = results[i].Name;
