@@ -42,6 +42,25 @@ class Country {
             this.countryCapital = results[0].Capital;
         }
     }
+
+    async rankCountryByPopulation() {
+        var sql = "SELECT Code, Name, Continent, Region, Population, Capital \
+        FROM country \
+        ORDER BY Population DESC \
+        LIMIT ?"
+        
+        const results = await db.query(sql, [this.response]);
+
+        for (let i = 0; i < results.length; i++) {
+            this.countryCode = results[i].Code
+            this.countryName = results[i].Name;
+            this.countryContinent = results[i].Continent;
+            this.countryRegion = results[i].Region;
+            this.countryPopulation = results[i].Population;
+            this.countryCapital = results[i].Capital;
+            console.log(this.countryName);
+        }
+    }
 }
 
 // Allow the Country class to be accessible across our code
