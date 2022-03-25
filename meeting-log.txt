@@ -73,26 +73,42 @@ ATTENDANCE: Yaksh, Sid, Tyler
 •	Prepared creating and linking the MYSQL Database with app.js
 
 Meeting 14 - Thursday, March 3, 2022 | 6:00pm - 8:30pm (Virtual)
-ATTENDANCE: Tyler, Andriy
+ATTENDANCE: Tyler, Andrew
 •	Created Full Use cases defined
 •	Caught Andriy up on weekly proggress
 •	Progressed on Presentation to final stages
 
-Meeting 15 – Sunday , March 6, 2022 | 5:00pm - 7:00pm(Person)
-ATTENDANCE :  Tyler , Andrew,Sid
+Meeting 15 – Sunday, March 6, 2022 | 5:00pm - 7:00pm(Person)
+ATTENDANCE:  Tyler , Andrew, Sid
 •	Preparing sprint 3 workflow 
 •	Dividing Sprint 3 Taskes between Team.
 
 
-Meeting 16 – Sunday , March 13, 2022 | 2:00pm - 4:00pm(Virtual)
-ATTENDANCE :  Tyler ,Sid, Yaksh
+Meeting 16 – Sunday, March 13, 2022 | 2:00pm - 4:00pm(Virtual)
+ATTENDANCE:  Tyler ,Sid, Yaksh
 •	Created World data-base along with its respective tables
 •	Linking Data-base with the Application.
 
-Meeting 17 – Monday , March 14, 2022 | 12:00pm - 1pm(Virtual)
-ATTENDANCE :  Tyler, Andriy
+Meeting 17 – Monday, March 14, 2022 | 12:00pm - 1pm(Virtual)
+ATTENDANCE:  Tyler, Andrew
 •	Discused Enviroment file and its creation
 •	Created DockerCompose.YMl
+
+Meeting 18 - Sunday, March 20, 2022 | 2:00pm - 5:00pm(Virtual)
+ATTENDANCE: Tyler, Sid, Andrew
+•	Disscused\completed Lab 9
+•	Database integration plan proposed
+
+Meeting 19 - Wensday, March 23, 2022 | 2:30pm - 4:00pm(in Person)
+ATTENDANCE: Tyler, Sid, Andrew
+•	Finalized model of mock up
+•	Prepared final sprint 3 requirements
+
+Meeting 20 - Sunday, March 25, 2022 | 12:00pm - 7:00pm(Virtual)
+ATTENDANCE: Tyler, Sid, Andrew
+•	Prepared all files and created submission
+•	Decided on which features will be carried into Sprint 4
+
 
 
 
