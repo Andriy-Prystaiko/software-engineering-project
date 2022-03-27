@@ -49,7 +49,7 @@ h1{
 }
 
 nav {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     height: 8vh;
     width: 96%;

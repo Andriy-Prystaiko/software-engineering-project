@@ -33,6 +33,29 @@ class Country {
         this.data.push(rowDict);      
     }
 
+    async getAllInitially() {
+        var sql = "SELECT Code, Name, Continent, \
+        Region, Population, Capital FROM country \
+        ORDER BY Population DESC";
+
+        const results = await db.query(sql, [this.response]);
+
+        // Iterate throughout the results (BinaryRow)
+        for(var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            // Coordinate the respective values with their correct key
+            rowDict["Code"] = row.Code;
+            rowDict["Name"] = row.Name;
+            rowDict["Continent"] = row.Continent;
+            rowDict["Region"] = row.Region;
+            rowDict["Population"] = row.Population;
+            rowDict["Capital"] = row.Capital;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
     // Create a function to receive the countries of a particular rank number
     async rankCountryByPopulation() {
         var sql = "SELECT Code, Name, Continent, Region, Population, Capital \

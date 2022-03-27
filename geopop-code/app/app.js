@@ -55,6 +55,7 @@ app.get("/country-report", async function(req, res) {
         // will need a blank country object to avoid errors
         countryResponse = '';
         country = new Country(countryResponse);
+        await country.getAllInitially();
     } else {
         country = new Country(countryResponse);
         // Get the details that correspond with the inputted country
