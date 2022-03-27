@@ -1,4 +1,3 @@
-//Test
 // Bring in our express module
 const express = require("express");
 // Bring in the path module
