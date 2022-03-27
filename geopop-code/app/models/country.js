@@ -2,18 +2,8 @@
 const db = require('./../services/db');
 
 class Country {
-    // Country Code
-    countryCode;
-    // Country Name
-    countryName;
-    // Country Continent
-    countryContinent;
-    // Country Region
-    countryRegion;
-    // Country Population
-    countryPopulation;
-    // Country Capital
-    countryCapital;
+    // Store all values within an array
+    data = []
     // The User Choice Response
     response;
 
@@ -24,30 +14,26 @@ class Country {
 
     // Get the Country details from the database
     async getCountryDetails() {
-        if (typeof this.countryName !== 'string') {
-            var sql = "SELECT Code, Name, Continent, \
-            Region, Population, Capital FROM country \
-            WHERE name = ?";
-            const results = await db.query(sql, [this.response]);
-            this.countryCode = results[0].Code;
-            this.countryName = results[0].Name;
-            this.countryContinent = results[0].Continent;
-            this.countryRegion = results[0].Region;
-            this.countryPopulation = results[0].Population;
-            this.countryCapital = results[0].Capital;
-
-            console.log(results);
-        }
-    }
-
-    // Get all Country values
-    async getAllCountryNames() {
-        var sql = "SELECT Name FROM country";
+        var sql = "SELECT Code, Name, Continent, \
+        Region, Population, Capital FROM country \
+        WHERE name = ?";
         const results = await db.query(sql, [this.response]);
-        console.log(results);
-        return results;
+
+        // Initialize a dictionary for storing of values
+        var rowDict = {};
+
+        // Add the corresponding values to their respective categorical key
+        rowDict["Code"] = results[0].Code;
+        rowDict["Name"] = results[0].Name;
+        rowDict["Continent"] = results[0].Continent;
+        rowDict["Region"] = results[0].Region;
+        rowDict["Population"] = results[0].Population;
+        rowDict["Capital"] = results[0].Capital;
+        // Add the rowDict into the data array
+        this.data.push(rowDict);      
     }
 
+    // Create a function to receive the countries of a particular rank number
     async rankCountryByPopulation() {
         var sql = "SELECT Code, Name, Continent, Region, Population, Capital \
         FROM country \
@@ -56,14 +42,19 @@ class Country {
         
         const results = await db.query(sql, [this.response]);
 
-        for (let i = 0; i < results.length; i++) {
-            this.countryCode = results[i].Code
-            this.countryName = results[i].Name;
-            this.countryContinent = results[i].Continent;
-            this.countryRegion = results[i].Region;
-            this.countryPopulation = results[i].Population;
-            this.countryCapital = results[i].Capital;
-            console.log(this.countryName);
+        // Iterate throughout the results (BinaryRow)
+        for(var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            // Coordinate the respective values with their correct key
+            rowDict["Code"] = row.Code;
+            rowDict["Name"] = row.Name;
+            rowDict["Continent"] = row.Continent;
+            rowDict["Region"] = row.Region;
+            rowDict["Population"] = row.Population;
+            rowDict["Capital"] = row.Capital;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
         }
     }
 }

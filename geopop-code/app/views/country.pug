@@ -60,13 +60,14 @@ block content
                         th Capital
                 <!-- Add the Results from the Country Response -->
                 tbody(id="tbody")
-                    tr
-                        td #{country.countryCode}
-                        td #{country.countryName}
-                        td #{country.countryContinent}
-                        td #{country.countryRegion}
-                        td #{country.countryPopulation}
-                        td #{country.countryCapital}
+                    for element in country.data
+                        tr
+                            td #{element.Code}
+                            td #{element.Name}
+                            td #{element.Continent}
+                            td #{element.Region}
+                            td #{element.Population}
+                            td #{element.Capital}
 
                         
     <!-- Adding Bootstrap components (jQuery, Popper.js) to our application -->
