@@ -1,0 +1,38 @@
+Unit Tests)
+Test 1:
+    # Test basic country search on database
+    input = "Canada"
+    Expected output = "CAN", "Canada", "Northern North America", 34,000,000
+
+    output = "CAN", "Canada", "Northern North America", 34,000,000
+	
+	Status: Success
+
+Test 2:
+    # Test Population ranking sorting feature
+    Input = 3
+    Expected Output = { "CHI", "China", "East Asia" 1,277,558,000
+			"IND", "India", "Southern and Central Asia", 1,013,662,000
+			"USA", "United States", "North America", 278357000}
+
+             Output = { "CHI", "China", "East Asia" 1,277,558,000
+			"IND", "India", "Southern and Central Asia", 1,013,662,000
+			"USA", "United States", "North America", 278357000}
+		
+		Status: Success
+
+Test 3:
+    # Test Population ranking sorting feature with negative input
+    input = -27
+    Expected Output = ALL Countrie's Values
+    
+    Output = ALL Countrie's Values
+
+
+Integration Tests)
+Test 1:
+    # Test the use of the transverse from home page to data search page button
+    input = Press Explore Button
+    Expected Output = Go to search page
+    
+    Output = Go to search page
