@@ -95,7 +95,7 @@ ATTENDANCE:  Tyler, Andrew
 •	Created DockerCompose.YMl
 
 Meeting 18 - Sunday, March 20, 2022 | 2:00pm - 5:00pm(Virtual)
-ATTENDANCE: Tyler, Sid, Andrew
+ATTENDANCE: Tyler, Sid, Andrew, Yaksh
 •	Disscused\completed Lab 9
 •	Database integration plan proposed
 
