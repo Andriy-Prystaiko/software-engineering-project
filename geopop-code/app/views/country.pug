@@ -42,8 +42,8 @@ block content
                     button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create") 
 
             datalist(id="countries")
-                for c in country
-                    option(value=c)
+                for country in countryList
+                    option(value=country)
 
         <!-- Bootstrap table -->
         div(class="d-flex table-data")

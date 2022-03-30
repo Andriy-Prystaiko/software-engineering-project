@@ -37,7 +37,7 @@ class Country {
         var sql = "SELECT Code, Name, Continent, \
         Region, Population, Capital FROM country \
         ORDER BY Population DESC";
-
+        
         const results = await db.query(sql, [this.response]);
 
         // Iterate throughout the results (BinaryRow)

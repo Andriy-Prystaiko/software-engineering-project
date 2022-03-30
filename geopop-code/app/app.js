@@ -49,13 +49,26 @@ app.get("/country-report", async function(req, res) {
     // Initialize an object: 'country'
     var country;
 
+    // Construct a query to receive all the country names from database
+    var sql = "SELECT Name FROM country";
+    // Receive the results and store them inside a variable
+    const results = await db.query(sql);
+    // Initialize a list to store all the dictionary values from 'results'
+    var countryList = [];
+
+    // Iterate throughout the 'results' dictionary
+    for(var nation of results) {
+        // Add the 'Name' of the country (nation) into the countryList
+        countryList.push(nation["Name"]);
+    }
+
     // Determine if the object has no value
     if (isEmpty(countryResponse) == true) {
         // When initally rendering the 'country' page, we
         // will need a blank country object to avoid errors
         countryResponse = '';
         country = new Country(countryResponse);
-        //await country.getAllInitially();
+        await country.getAllInitially();
     } else {
         country = new Country(countryResponse);
         // Get the details that correspond with the inputted country
@@ -68,8 +81,8 @@ app.get("/country-report", async function(req, res) {
         //console.log(country);
     }
 
-    // Render the 'country' page and pass country values data
-    res.render("country", {country:country});
+    // Render the 'country' page and pass country values and countryList data
+    res.render("country", {country:country, countryList:countryList});
 });
 
 app.post('/received-response', function (req, res) {
@@ -84,8 +97,6 @@ app.post('/received-response', function (req, res) {
     // After setting the cookie, redirect to the 'country-report' endpoint
     res.redirect('/country-report');
 });
-
-
 
 // Start the server on Port 3000...
 app.listen(3000, function(){
