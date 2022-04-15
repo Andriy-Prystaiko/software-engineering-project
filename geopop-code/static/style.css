@@ -8,11 +8,21 @@
     overflow-x: hidden;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: "Roboto";
+    list-style: none;
+    box-sizing: border-box;
+    background: #000;
+  }
+
 /* Define the formatting for the parallalx class */
 .parallalx{
     width: 100%;
     height:750px;
-    background: url(./images/space.jpeg) no-repeat fixed 100%;
+    background: url(images/space.jpeg) no-repeat fixed 100%;
     background-size: cover;
     color: #fff;
 }
@@ -85,6 +95,7 @@ h4{
     text-transform: uppercase;
     text-align: center;
     letter-spacing: 6px;
+    color: white;
 }
 
 nav {
@@ -107,6 +118,7 @@ nav {
 nav .navbar ul {
     /*display: flex;*/
     /*flex-direction: row;*/
+
     list-style: none;
     margin: 0;
     display: flex;
@@ -114,6 +126,7 @@ nav .navbar ul {
     align-items: center;
     padding: 1em 0;
 }
+
 
 nav .navbar li a{
     text-decoration: none;
@@ -131,7 +144,8 @@ nav .navbar li a::after{
     display: block;
     height: 0.4em;
     width: 0%;
-    background-color:rgb(57, 121, 180);
+    /*background-color:rgb(57, 121, 180);*/
+    background-color: cornflowerblue;
     bottom: -1em;
     transition: all ease-in-out 250ms;
 }
@@ -141,7 +155,8 @@ nav .navbar li a:hover::after{
 }
 
 nav .navbar li a:hover{
-    color: rgb(57, 121, 180);
+    /*color: rgb(57, 121, 180);*/
+    color: cornflowerblue;
 }
   
 nav .navbar ul li img {
@@ -150,9 +165,8 @@ nav .navbar ul li img {
 
 .report-buttons{
     position: relative;
-    left: 11vw;
-    top: 24vh;
-
+    left: 4vw;
+    top: 21.5vh;
 }
 
 .wrapper .button{
@@ -160,9 +174,8 @@ nav .navbar ul li img {
     height: 60px;
     width: 60px;
     float: left;
-    margin: 0 25px;
+    margin: 0 40px;
     overflow: hidden;
-    /*background: rgb(28, 29, 78);*/
     background: #fff;
     border-radius: 50px;
     cursor: pointer;
@@ -172,7 +185,6 @@ nav .navbar ul li img {
 
 .wrapper .button:hover{
     width: 200px;
-
 }
 
 .wrapper .button .icon{
@@ -193,25 +205,34 @@ nav .navbar ul li img {
 
 .wrapper .button span{
     font-size: 20px;
-    font-weight: 500;
-    line-height: 60px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    font-weight: 700;
     text-transform: uppercase;
-    font-weight: 800;
     color: black;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50px;
+    box-sizing: border-box;
+    line-height: 56px;
+    /*margin-left: 8px;*/
 }
 
 .earth img {
     width: 600px;
     height: 600px;
-    /*position: absolute;*/
     position: absolute;
     left: 52vw;
     top: 12vh;
     z-index: 1;
     filter: brightness(0.7);
 }
+
+section {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* SWIPER */
+
 
 @media(max-width: 991px){
 
