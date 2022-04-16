@@ -45,20 +45,22 @@
                     <div data-depth="0.1" class="report-buttons">
                         <div class="wrapper">
                             <a href="/country">
-                                <div class="button">
+                                <div class="button" id="countryBtn">
                                     <div class="icon"><i class="fa-solid fa-flag"></i></div>
                                     <span>Country</span>
                                 </div>
                             </a>
-                            <div class="button">
-                                <div class="icon"><i class="fa-solid fa-tree-city"></i></div>
-                                <span>City</span>
-                            </div>
-                            <div class="button">
+                            <a href="/city">
+                                <div class="button" id="cityBtn">
+                                    <div class="icon"><i class="fa-solid fa-tree-city"></i></div>
+                                    <span>City</span>
+                                </div>
+                            </a>
+                            <div class="button" id="capitalCityBtn">
                                 <div class="icon"><i class="fa-solid fa-landmark-dome"></i></div>
                                 <span>Capital City</span>
                             </div>
-                            <div class="button">
+                            <div class="button" id="populationBtn">
                                 <div class="icon"><i class="fa-solid fa-people-group"></i></div>
                                 <span>Population</span>
                             </div>
@@ -71,10 +73,67 @@
                     <br>
                 </div>
             </div>
+            <!-- Place a nice slant design for this div-->
+            <div class="slantDesign">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M892.25 114.72L0 0 0 120 1200 120 1200 0 892.25 114.72z" class="shape-fill"></path>
+                </svg>
+            </div>
         </div>
 
-        <section id="sectiontwo">
-            <h4>Generate Reports Information Goes Here</h4>   
+        <section id="sectionTwo">
+            <div class="langBars">
+                <!-- Creating the English bar -->
+                <div class="bar">
+                    <div class="langInfo">
+                        <span>English</span>
+                    </div>
+                    <div class="percentLine english">
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Creating the Chinese bar -->
+                <div class="bar">
+                    <div class="langInfo">
+                        <span>Chinese</span>
+                    </div>
+                    <div class="percentLine chinese">
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Creating the Hindi bar -->
+                <div class="bar">
+                    <div class="langInfo">
+                        <span>Hindi</span>
+                    </div>
+                    <div class="percentLine hindi">
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Creating the Spanish bar -->
+                <div class="bar">
+                    <div class="langInfo">
+                        <span>Spanish</span>
+                    </div>
+                    <div class="percentLine spanish">
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Creating the Arabic bar -->
+                <div class="bar">
+                    <div class="langInfo">
+                        <span>Arabic</span>
+                    </div>
+                    <div class="percentLine arabic">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- <h4>Generate Reports Information Goes Here</h4> -->
         </section>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
