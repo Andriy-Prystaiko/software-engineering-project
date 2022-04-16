@@ -48,10 +48,11 @@ function activeCityResponse(city, continent, region, country, district) {
     var inputs = [city, continent, region, country, district];
     
     for (var input of inputs) {
-        if (input != null) {
+        if (!(input == '')) {
             return input;
         }
     }
+    return false;
 }
 
 app.get("/city", async function(req, res) {
@@ -128,13 +129,21 @@ app.get("/city", async function(req, res) {
 
     // Create an object for the city table data
     var city = new City(userInput);
+
+    //if (userInput == false) {
+        //await city.selectAllCities();
+    //}
     
     if (userInput == cityInput) {
-        if (cityInput == "Select All" || cityInput == null) {
+        if (cityInput == "Select All") {
             await city.selectAllCities();
         } else {
-            //await city.selectSpecificCity();
+            await city.selectSpecificCity();
         }
+    } else if (userInput == continentInput) {
+        await city.selectContinents();
+    } else if (userInput == districtInput) {
+        await city.selectDistricts();
     }
 
     // Render the 'city' page and pass some data into the page
@@ -201,7 +210,7 @@ app.post('/received-response', function (req, res) {
     res.redirect('/country');
 });
 
-app.post('/city-response'), function (req, res) {
+app.post('/city-response', function (req, res) {
     // Get the submitted value from the user
     var params = req.body;
     
@@ -214,7 +223,7 @@ app.post('/city-response'), function (req, res) {
 
     // After setting the cookie, redirect to the 'country-report' endpoint
     res.redirect('/city');
-}
+});
 
 // Start the server on Port 3000...
 app.listen(3000, function(){

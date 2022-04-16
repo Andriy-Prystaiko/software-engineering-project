@@ -41,6 +41,13 @@ block content
                     button(style=bStyles id="btn-save" class="btn btn-info" i class="fa fa-floppy-o" aria-hidden="true" name="save" dat-toggle="tooltip" data-placement="bottom" title="Save" disabled="true") 
                     button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create") 
 
+                div(class="pt-4")
+                    div(class="input-group mb-2")
+                        div(class="input-group-prepend")
+                            <!-- Add icon next to the textbox -->
+                            div(class="input-group-text bg-warning" i class="fa fa-map-marker" aria-hidden="true") 
+                        input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Country" name="country" list="countries" value=country.Name)
+
             datalist(id="countries")
                 for country in countryList
                     option(value=country)

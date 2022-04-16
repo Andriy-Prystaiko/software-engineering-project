@@ -98,7 +98,7 @@ class City {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT city.Name AS Name, country.Name AS Country, \
         city.District AS District, city.Population AS Population FROM city, country \
-        WHERE city.CountryCode = country.Code ORDER BY Name ASC";
+        WHERE city.CountryCode = country.Code ORDER BY Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql);
         // Store all the districts within the data list
@@ -119,9 +119,51 @@ class City {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT city.Name AS Name, country.Name AS Country, \
         city.District AS District, city.Population AS Population FROM city, country \
-        WHERE city.CountryCode = country.Code ORDER BY Country DESC";
+        WHERE city.CountryCode = country.Code AND city.Name = ?";
         // Receive the results and store them inside a variable
-        const results = await db.query(sql);
+        const results = await db.query(sql, [this.response]);
+        // Store all the districts within the data list
+        for(var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            rowDict["Name"] = row.Name;
+            rowDict["Country"] = row.Country;
+            rowDict["District"] = row.District;
+            rowDict["Population"] = row.Population;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
+    async selectContinents() {
+        // Construct a query to receive the City name, country, district and population from the database
+        var sql = "SELECT city.Name AS Name, country.Name AS Country, city.District AS District, \
+        city.Population AS Population FROM city, country \
+        WHERE city.CountryCode = country.Code AND country.Continent = ? \
+        ORDER BY city.Population DESC";
+        // Receive the results and store them inside a variable
+        const results = await db.query(sql, [this.response]);
+        // Store all the districts within the data list
+        for(var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            rowDict["Name"] = row.Name;
+            rowDict["Country"] = row.Country;
+            rowDict["District"] = row.District;
+            rowDict["Population"] = row.Population;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
+    async selectDistricts() {
+        // Construct a query to receive the City name, country, district and population from the database
+        var sql = "SELECT city.Name AS Name, country.Name AS Country, city.District AS District, \
+        city.Population AS Population FROM city, country \
+        WHERE city.CountryCode = country.Code AND city.District = ? \
+        ORDER BY city.Population DESC";
+        // Receive the results and store them inside a variable
+        const results = await db.query(sql, [this.response]);
         // Store all the districts within the data list
         for(var row of results) {
             // Initialize a dictionary to store values

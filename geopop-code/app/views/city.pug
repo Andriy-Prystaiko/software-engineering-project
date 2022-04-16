@@ -3,41 +3,41 @@ block content
     .main-content
     <!-- Create the city dropdown box -->
     div(class="lform")
-        form(action="city-response" method="POST" class="w-75")
+        form(action='/city-response' method='POST' class="w-75")
             <!-- Enable padding only on the top -->
             div(class="row pt-2")
                 div(class="col mr-n5")
                     <!-- Build the City Textbox -->
                     div(class="form__div")
-                        input(type="text" class="form__input" placeholder=" " list="cities" name="cityCityInput" value="Select All" onclick="determineCityData()" style="tStyles")
+                        input(type="text" class="form__input" placeholder=" " list="cities" value="Select All" name="cityCityInput")
                         label(for="" class="form__label") City
 
                 <!-- Column 2: Continent Textbox -->
                 div(class="col mr-n5")
                     <!-- Build the Continent Textbox -->
                     div(class="form__div")
-                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput" style="tStyles")
+                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput")
                         label(for="" class="form__label") Continent
 
                 <!-- Column 3: Region Textbox -->
                 div(class="col mr-n5")
                     <!-- Build the Region Textbox -->
                     div(class="form__div")
-                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput" style="tStyles")
+                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput")
                         label(for="" class="form__label") Region
 
                 <!-- Column 4: Country Textbox -->
                 div(class="col mr-n5")
                     <!-- Build the Country Textbox -->
                     div(class="form__div")
-                        input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput" style="tStyles")
+                        input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput")
                         label(for="" class="form__label") Country
 
                 <!-- Column 5: District Textbox -->
                 div(class="col mr-n5")
                     <!-- Build the District Textbox -->
                     div(class="form__div")
-                        input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput" style="tStyles")
+                        input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput")
                         label(for="" class="form__label") District
 
                 <!-- Placement of the Submit Button -->
@@ -72,21 +72,21 @@ block content
             for district in districtList
                 option(value=district)
 
-    <!-- Bootstrap table -->
-    div(class="d-flex table-data")
-        - const tStyles = {"margin": "9.5em 10em"};
-        table(style=tStyles class="table table-striped table-dark")
+    <!-- The City Report Table -->
+    div(class="cityTable")
+        - const tStyles = {"margin": "-2em 12.5em"};
+        table(style=tStyles class="sticky")
             <!-- Add the Table Headers as a Row -->
-            thead(class="thead-dark")
+            thead
                 tr
-                    th Name
+                    th City
                     th Country
                     th District
                     th Population
             <!-- Add the Results from the Country Response -->
-            tbody(id="tbody")
+            tbody
                 for element in city.data
-                    tr
+                    tr(id="tableData")
                         td #{element.Name}
                         td #{element.Country}
                         td #{element.District}
