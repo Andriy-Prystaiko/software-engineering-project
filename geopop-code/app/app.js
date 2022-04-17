@@ -197,6 +197,10 @@ app.get("/country", async function(req, res) {
     res.render("country", {country:country, countryList:countryList});
 });
 
+app.get("/capital-city", async function(req, res) {
+    res.render("capital-city");
+});
+
 app.post('/received-response', function (req, res) {
     // Get the submitted value from the user
     var params = req.body;

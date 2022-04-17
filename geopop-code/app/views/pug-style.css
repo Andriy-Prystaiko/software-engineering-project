@@ -1,10 +1,17 @@
-/* Import the Roboto font family */
+/* Import the Roboto, Oswald, Anek Telugu, Josefin Sans, Kanit font family */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Convergence&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Convergence&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Convergence&family=Josefin+Sans:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Convergence&family=Josefin+Sans:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700;800;900&family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;700&display=swap');
 
 :root {
     --first-color: #1A73E8;
     --input-color: #80868B;
     --border-color: #DADCE0;
+    --primary-purple: #8c38ff;
+    --light-color:#EEEEEE;
+    --dark-color: #212121;
 
     --body-font: 'Roboto', sans-serif;
     --normal-font-size: 1rem;
@@ -21,6 +28,177 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: #23242a;
+    overflow: scroll;
+}
+
+.anchor {
+    position: relative;
+}
+
+.navContainer {
+    max-width: 1280px;
+    height: 32px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: #23242a;
+    padding: 16px 32px;
+}
+
+h1 {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hamburger {
+    display: block;
+    position: relative;
+    z-index: 1;
+
+    user-select: none;
+    
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+
+    background-color: var(--light-color);
+    border-radius: 6px;
+    z-index: 1;
+
+    transform-origin: 0 0;
+    transition: 0.4s;
+}
+
+.hamburger:hover span:nth-child(2) {
+    transform: translateX(10px);
+    background-color: var(--primary-purple);
+}
+
+.hamburger.isActive:hover span {
+    background-color: var(--primary-purple);
+}
+
+.navMenu {
+    display: none;
+    flex: 1 1 0%;
+    justify-content:  flex-end;
+    margin: 0 -16px;
+}
+
+.navMenu a {
+    color: #fff;
+    margin: 0 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.4s;
+    padding: 8px 16px;
+    border-radius: 99px;
+}
+
+.navMenu a.isActive, .navMenu a:hover {
+    background-color:rgba(16, 86, 151, 0.973);
+    color: white;
+    text-decoration-line: none;
+}
+
+@media (min-width: 768px) {
+    .hamburger {
+        display: none;
+    }
+    .navMenu {
+        display: flex;
+    }
+}
+
+#cityBanner {
+    position: relative; 
+    background: linear-gradient(to bottom right, rgba(22, 14, 95, 0.548), rgba(0, 0, 0, 0.3)), url(../images/city7.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    background-position: 75% 60%;
+    /*border: 5px solid black;*/
+    opacity: .9;
+    z-index: 1;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+}
+
+.bannerContent {
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0, 0.4); 
+
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Kanit;
+    z-index: 2;
+    margin: -100px;
+    margin-left: 0px;
+}
+
+.bannerContent h1 {
+    margin: 0;
+    font-size: 45px;
+
+}
+
+.bannerContent h1 span {
+    border: 6px solid white;
+    padding: 6px 14px;
+    display: inline-block;
+}
+
+.bannerTail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin-top: 289px;
+    z-index: -1;
+}
+
+.bannerTail svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 18px;
+}
+
+.bannerTail .shape-fill {
+    /* fill: #012A63; */
+    fill: #23242a;
 }
 
 /* Table formatting */
@@ -87,11 +265,6 @@ tbody tr:nth-child(odd) {
 }
 
 body #tableData:hover {
-    background: #b8e994;
-    color: white;
-}
-
-body #tableData:hover {
     background-color: #f5f5f5;
     transform: scale(1.02);
     box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
@@ -104,7 +277,7 @@ body #tableData:hover {
     justify-content: center;
     /*margin: 125px;*/
     position:relative;
-    margin: 9rem;
+    margin: 2rem;
     margin-bottom: 20px;
     margin-left: 80px;
 }
@@ -146,7 +319,7 @@ body #tableData:hover {
 .form__label {
     position: absolute;
     left: 1rem;
-    top: .75rem;
+    top: 1.5rem;
     padding: 0 .25rem;
     background-color: #fff;
     color: var(--input-color);
