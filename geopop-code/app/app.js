@@ -55,6 +55,19 @@ function activeCityResponse(city, continent, region, country, district) {
     return false;
 }
 
+// Create a function that will receive corresponding content
+function storeContent(contentList, specifier) {
+    // Initialize a list to store items and return
+    var returnList = [];
+
+    // Add all content within the contentList
+    for (var content of contentList) {
+        returnList.push(content[specifier]);
+    }
+    // Return the returnList
+    return returnList;
+}
+
 app.get("/city", async function(req, res) {
     // Create an objects for the initial display items
     var cityDisplayText = new City(null);
@@ -72,9 +85,10 @@ app.get("/city", async function(req, res) {
     // Initialize a variable to store all city names
     var cityDisplayList = cityDisplayText.data;
     // Add all cities within the cityList
-    for (var cities of cityDisplayList) {
-        cityList.push(cities["Name"]);
-    }
+    //for (var cities of cityDisplayList) {
+        //cityList.push(cities["Name"]);
+    //}
+    cityList = storeContent(cityDisplayList, specifier="Name");
 
     // Call upon the allContinentsGrouped() function to receive a list of all 
     // grouped continents 
