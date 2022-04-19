@@ -70,7 +70,7 @@ function storeContent(contentList, specifier) {
 
 app.get("/city", async function(req, res) {
     // Create an objects for the initial display items
-    var cityDisplayText = new City(null);
+    let cityDisplayText = new City(null);
 
     // Initialize a list to store all the dictionary values from 'results'
     var cityList = [];
@@ -89,6 +89,7 @@ app.get("/city", async function(req, res) {
         //cityList.push(cities["Name"]);
     //}
     cityList = storeContent(cityDisplayList, specifier="Name");
+    cityList = [];
 
     // Call upon the allContinentsGrouped() function to receive a list of all 
     // grouped continents 
