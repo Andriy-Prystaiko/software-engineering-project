@@ -3,10 +3,15 @@ const express = require("express");
 // Bring in the path module
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const jsdom = require('jsdom')
 
-global.document = {
-    execCommand() {}
-};
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+
+const dom = new jsdom.JSDOM("")
+
+const jquery = require('jquery')(dom.window)
 
 // Assign a variable to the express function
 var app = express();
@@ -22,6 +27,11 @@ app.set('views', './app/views');
 // Get the functions in the db.js file to use
 const db = require('./services/db');
 app.use(express.urlencoded({ extended: true }));
+
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+// Parse application/json
+app.use(bodyParser.json());
 
 // Get the models
 const { Country } = require('./models/country');
@@ -55,23 +65,7 @@ function activeCityResponse(city, continent, region, country, district) {
     return false;
 }
 
-// Create a function that will receive corresponding content
-function storeContent(contentList, specifier) {
-    // Initialize a list to store items and return
-    var returnList = [];
-
-    // Add all content within the contentList
-    for (var content of contentList) {
-        returnList.push(content[specifier]);
-    }
-    // Return the returnList
-    return returnList;
-}
-
 app.get("/city", async function(req, res) {
-    // Create an objects for the initial display items
-    let cityDisplayText = new City(null);
-
     // Initialize a list to store all the dictionary values from 'results'
     var cityList = [];
     // Initialize lists that will be dependent on the value of the cityInput
@@ -80,53 +74,46 @@ app.get("/city", async function(req, res) {
     var countryList = [];
     var districtList = [];
 
-    // Call upon the allCityNames() function to receive a list of all cities
-    await cityDisplayText.allCityNames();
-    // Initialize a variable to store all city names
-    var cityDisplayList = cityDisplayText.data;
-    // Add all cities within the cityList
-    //for (var cities of cityDisplayList) {
-        //cityList.push(cities["Name"]);
-    //}
-    cityList = storeContent(cityDisplayList, specifier="Name");
-    cityList = [];
+    // Get the option list within the City textbox
+    var sqlAllCities = "SELECT city.Name AS cityName FROM city";
+    const allCities = await db.query(sqlAllCities);
+    for (var row of allCities) {
+        // For each iteration, add the new elements into the cityList
+        cityList.push(row.cityName);
+    } 
 
-    // Call upon the allContinentsGrouped() function to receive a list of all 
-    // grouped continents 
-    await cityDisplayText.allContinentsGrouped();
-    // Initialize a variable to store all grouped continents
-    var continentDisplayList = cityDisplayText.data;
-    // Add all grouped continents within the continentList
-    for (var continent of continentDisplayList) {
-        continentList.push(continent["Continent"]);
+    // Get the option list items for the Regions textbox
+    var sqlAllRegions = "SELECT Region FROM country GROUP BY Region";
+    const allRegions = await db.query(sqlAllRegions);
+    for (var row of allRegions) {
+        regionList.push(row.Region)
     }
 
-    // Call upon the allRegionsGrouped() function to receive a list of all
-    // grouped regions
-    await cityDisplayText.allRegionsGrouped();
-    // Initialize a variable to store all grouped regions
-    var regionDisplayList = cityDisplayText.data;
-    // Add all grouped regions within the regionList
-    for (var region of regionDisplayList) {
-        regionList.push(region["Region"]);
+    // Get the option list elements within the Continents textbox
+    var sqlAllContinents = "SELECT Continent FROM country GROUP BY Continent";
+    // Receive the results and store them inside a variable
+    const allContinents = await db.query(sqlAllContinents);
+    // Store all the continents within the continentList
+    for(var row of allContinents) {
+        // For each iteration, add the new rowDict into the continentsList
+        continentList.push(row.Continent);
     }
 
-    // Call upon the allCountries() function to receive a list of all countries
-    await cityDisplayText.allCountries();
-    // Initialize a variable to store all countries
-    var countryDisplayList = cityDisplayText.data;
-    // Add all the countries within the countryList
-    for (var country of countryDisplayList) {
-        countryList.push(country["Country"]);
+    // Get the option list items for the District textbox
+    var sqlAllDistricts = "SELECT District FROM city GROUP BY District";
+    const allDistricts = await db.query(sqlAllDistricts);
+    for (var row of allDistricts) {
+        districtList.push(row.District);
     }
 
-    // Call upon the allCountries() function to receive a list of all countries
-    await cityDisplayText.allDistrictsGrouped();
-    // Initialize a variable to store all countries
-    var districtDisplayList = cityDisplayText.data;
-    // Add all the countries within the countryList
-    for (var district of districtDisplayList) {
-        districtList.push(district["District"]);
+    // Get the option list for the Country textbox
+    var sqlAllCountries = "SELECT country.Name AS Country \
+    FROM country ORDER BY Country ASC";
+    const allCountries = await db.query(sqlAllCountries);
+    // Store all the countries within the data list
+    for(var row of allCountries) {
+        // For each iteration, add the new rowDict into the data array
+        countryList.push(row.Country);
     }
 
     // Initialize the cookies that hold an object with all 
@@ -138,29 +125,47 @@ app.get("/city", async function(req, res) {
     var regionInput = cookies['regionCityInput'];
     var countryInput = cookies['countryCityInput'];
     var districtInput = cookies['districtCityInput'];
-
+    var rankInput = cookies['rankCityInput'];
+    
+    // Determine which textbox had the submitted input
     var userInput = activeCityResponse(cityInput, continentInput, 
         regionInput, countryInput, districtInput);
 
     // Create an object for the city table data
     var city = new City(userInput);
 
-    //if (userInput == false) {
-        //await city.selectAllCities();
-    //}
-    
-    if (userInput == cityInput) {
-        if (cityInput == "Select All") {
-            await city.selectAllCities();
-        } else {
-            await city.selectSpecificCity();
-        }
+    if (userInput == false) {
+        await city.emptyResponse();
+    }else if (userInput == cityInput && cityInput == "Select All") {
+        await city.selectAllCities();
+    // If the input was within the City Textbox
+    } else if (userInput == cityInput && cityInput != "Select All") {
+        await city.selectSpecificCity();
+    // If the input was within the Continent Textbox
     } else if (userInput == continentInput) {
         await city.selectContinents();
+    // If the input was within the Region Textbox
+    } else if (userInput == regionInput) {
+        await city.selectRegions();
+    // If the input was within the Country Textbox
+    } else if (userInput == countryInput) {
+        await city.selectCountries();
+    // If the input was within the District Textbox
     } else if (userInput == districtInput) {
         await city.selectDistricts();
+    } else {
+        city = [{}];
     }
 
+    // Edit the city.data based on the input of the Rank Numberbox
+    if (isEmpty(rankInput)) {
+        rankInput = 0;
+    } else {
+        // Filter city.data to only include the data within the rank range
+        city.data = city.data.filter(function(value, index, arr){
+            return index <= rankInput - 1;
+        });
+    }
     // Render the 'city' page and pass some data into the page
     res.render("city", {city:city, cityList:cityList, continentList:continentList, 
         regionList:regionList, countryList:countryList, districtList:districtList});
@@ -239,6 +244,7 @@ app.post('/city-response', function (req, res) {
     res.cookie('regionCityInput', params.regionCityInput);
     res.cookie('countryCityInput', params.countryCityInput);
     res.cookie('districtCityInput', params.districtCityInput);
+    res.cookie('rankCityInput', params.rankCityInput);
 
     // After setting the cookie, redirect to the 'country-report' endpoint
     res.redirect('/city');

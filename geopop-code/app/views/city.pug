@@ -4,7 +4,7 @@ block content
     <!-- Create the navbar -->
     nav
         div(class="navContainer")
-            h1 Geopop
+            h1(id="geopopTitle") Geopop
 
             div(class="navMenu")
                 a(href="/" class="isActive") Home
@@ -21,7 +21,7 @@ block content
     div(class="banner" id="cityBanner")
     div(class="anchor")
         div(class="bannerContent")
-            h1
+            h1(id="cityBannerHeader")
                 span City Report
 
     div(class="bannerTail")
@@ -32,40 +32,46 @@ block content
         div(class="lform")
             form(action='/city-response' method='POST' class="w-75")
                 <!-- Enable padding only on the top -->
-                div(class="row pt-2")
+                div(class="row pt-2" id="textboxes")
                     div(class="col mr-n5")
                         <!-- Build the City Textbox -->
                         div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="cities" value="Select All" name="cityCityInput")
+                            input(type="text" class="form__input" placeholder=" " list="cities" name="cityCityInput" id="cityTextbox")
                             label(for="" class="form__label") City
 
                     <!-- Column 2: Continent Textbox -->
                     div(class="col mr-n5")
                         <!-- Build the Continent Textbox -->
                         div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput")
+                            input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput" id="continentTextbox")
                             label(for="" class="form__label") Continent
 
                     <!-- Column 3: Region Textbox -->
                     div(class="col mr-n5")
                         <!-- Build the Region Textbox -->
                         div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput")
+                            input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput" id="regionTextbox")
                             label(for="" class="form__label") Region
 
                     <!-- Column 4: Country Textbox -->
                     div(class="col mr-n5")
                         <!-- Build the Country Textbox -->
                         div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput")
+                            input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput" id="countryTextbox")
                             label(for="" class="form__label") Country
 
                     <!-- Column 5: District Textbox -->
                     div(class="col mr-n5")
                         <!-- Build the District Textbox -->
                         div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput")
+                            input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput" id="districtTextbox")
                             label(for="" class="form__label") District
+
+                    <!-- Column 6: Rank Numberbox -->
+                    div(class="col mr-n5")
+                        div(class="form__div")
+                            input(type="number" class="form__input" placeholder=" " name="rankCityInput" min="1")
+                            label(for="" class="form__label") Rank
 
                     <!-- Placement of the Submit Button -->
                     div(class="col mr-n5")
@@ -101,28 +107,94 @@ block content
 
         <!-- The City Report Table -->
         div(class="cityTable")
-            - const tStyles = {"margin": "-2em 12.5em"};
-            table(style=tStyles class="sticky")
+            - const tStyles = {"margin": "auto 12.5em"};
+            table(style=tStyles class="sticky tableSortable" id="cityTable")
                 <!-- Add the Table Headers as a Row -->
                 thead
                     tr
                         th City
                         th Country
                         th District
-                        th Population
+                        th(id="popHeader") Population
+                            div(class="toggle" id="caretDown")
+                                i(class="fa fa-caret-down" aria-hidden="true" id="icon")
+
                 <!-- Add the Results from the Country Response -->
-                <!-- tbody -->
-                    <!-- for element in city.data -->
-                        <!-- tr(id="tableData") -->
-                            <!-- td {element.Name} -->
-                            <!-- td {element.Country} -->
-                            <!-- td {element.District} -->
-                            <!-- td {element.Population} -->
+                tbody
+                    for element in city.data
+                        tr(id="tableData")
+                            td #{element.Name}
+                            td #{element.Country}
+                            td #{element.District}
+                            td #{element.Population}
+
+        div(class="spaceSeparation")
+        footer(class="footerDistributed")
+            div(class="footerLeft")
+                h3 Kamino#[span Softworks]
+
+                p(class="footerCompanyName") Copyright © 2022. #[strong All rights reserved.]
+
+            div(class="mediaIcons")
+                a(href="#" i class="fa-brands fa-facebook") 
+                a(href="#" i class="fa-brands fa-twitter")
+                a(href="#" i class="fa-brands fa-instagram")
+                a(href="#" i class="fa-brands fa-linkedin-in")
+                a(href="#" i class="fa-brands fa-youtube")
+
 
     style
         include ./../app.js                
     <!-- Adding Bootstrap components (jQuery, Popper.js) to our application -->
     <!-- These components will be utilized for our more interactive features and designs -->
+    script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"
     script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
     script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
     script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+    script.
+
+        const pop = document.getElementById("popHeader") 
+        const caret = document.getElementById("caretDown");
+        const icon = document.getElementById("icon");
+        var open = false;
+
+        pop.addEventListener("click", function() {
+            if(open) {
+                icon.className = 'fa fa-caret-down';
+            } else {
+                icon.className = 'fa fa-caret-down open';
+            }
+            open = !open;
+        });
+
+        function sortTableByColumn(table, column, asc = true) {
+            const dirModifier = asc ? 1 : -1;
+            const tBody = table.tBodies[0];
+            const rows = Array.from(tBody.querySelectorAll("tr"));
+
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+                const aColText = Number(a.querySelector(`td:nth-child(${ column + 1})`));
+                const bColText = Number(b.querySelector(`td:nth-child(${ column + 1})`));
+
+                return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);    
+            });
+
+            // Remove all exisiting TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(asc);
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(!asc);
+        }
+
+        populationHeader = document.getElementById("popHeader") 
+
+        populationHeader.addEventListener('click', () => {
+            sortTableByColumn(document.getElementById("cityTable"), 3, true);   
+        });
