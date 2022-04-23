@@ -6,13 +6,10 @@ class City {
     data = [];
     // The User Choice Response
     response;
-
-    //rank;
     
     // Set the Country Name as the constructor
     constructor(response) {
         this.response = response;
-        // this.rank = rank
     }
 
     // Create a function to receive City name, country, district, and population
@@ -22,7 +19,6 @@ class City {
         city.District AS District, city.Population AS Population FROM city, country \
         WHERE city.CountryCode = country.Code ORDER BY Population DESC";
         // Receive the results and store them inside a variable
-        //const results = await db.query(sql, [this.rank]);
         const results = await db.query(sql);
     
         // Store all the districts within the data list
@@ -142,9 +138,16 @@ class City {
             this.data.push(rowDict);
         }
     }
-
+    
+    // Create a function that satisfies the 'All-Empty-Inputs' condition
     async emptyResponse() {
-        this.data = [];
+        var rowDict = {};
+        rowDict["Name"] = '';
+        rowDict["Country"] = '';
+        rowDict["District"] = '';
+        rowDict["Population"] = '';
+        // For each iteration, add the new rowDict into the data array
+        this.data.push(rowDict);
     }
 }
 

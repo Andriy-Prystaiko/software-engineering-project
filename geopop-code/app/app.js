@@ -54,8 +54,7 @@ function isEmpty(obj) {
     return true;
 }
 
-function activeCityResponse(city, continent, region, country, district) {
-    var inputs = [city, continent, region, country, district];
+function activeCityResponse(inputs) {
     
     for (var input of inputs) {
         if (!(input == '')) {
@@ -126,37 +125,48 @@ app.get("/city", async function(req, res) {
     var countryInput = cookies['countryCityInput'];
     var districtInput = cookies['districtCityInput'];
     var rankInput = cookies['rankCityInput'];
-    
+
+    // Initialize a list that contains all inputs
+    var checkTextboxes = [cityInput, continentInput, 
+        regionInput, countryInput, districtInput];
     // Determine which textbox had the submitted input
-    var userInput = activeCityResponse(cityInput, continentInput, 
-        regionInput, countryInput, districtInput);
+    var userInput = activeCityResponse(checkTextboxes);
+    
+    // Set a condition if all inputs were empty
+    if (userInput == false) {
+        userInput = '';
+    }
 
     // Create an object for the city table data
     var city = new City(userInput);
 
-    if (userInput == false) {
+    try {
+        if (userInput == '') {
+            await city.emptyResponse();
+        } else if (userInput == cityInput && cityInput == "Select All") {
+            await city.selectAllCities();
+        // If the input was within the City Textbox
+        } else if (userInput == cityInput && cityInput != "Select All") {
+            await city.selectSpecificCity();
+        // If the input was within the Continent Textbox
+        } else if (userInput == continentInput) {
+            await city.selectContinents();
+        // If the input was within the Region Textbox
+        } else if (userInput == regionInput) {
+            await city.selectRegions();
+        // If the input was within the Country Textbox
+        } else if (userInput == countryInput) {
+            await city.selectCountries();
+        // If the input was within the District Textbox
+        } else if (userInput == districtInput) {
+            await city.selectDistricts();
+        } else {
+            await city.emptyResponse();
+        }
+    } catch(err) {
         await city.emptyResponse();
-    }else if (userInput == cityInput && cityInput == "Select All") {
-        await city.selectAllCities();
-    // If the input was within the City Textbox
-    } else if (userInput == cityInput && cityInput != "Select All") {
-        await city.selectSpecificCity();
-    // If the input was within the Continent Textbox
-    } else if (userInput == continentInput) {
-        await city.selectContinents();
-    // If the input was within the Region Textbox
-    } else if (userInput == regionInput) {
-        await city.selectRegions();
-    // If the input was within the Country Textbox
-    } else if (userInput == countryInput) {
-        await city.selectCountries();
-    // If the input was within the District Textbox
-    } else if (userInput == districtInput) {
-        await city.selectDistricts();
-    } else {
-        city = [{}];
     }
-
+    
     // Edit the city.data based on the input of the Rank Numberbox
     if (isEmpty(rankInput)) {
         rankInput = 0;
@@ -172,63 +182,101 @@ app.get("/city", async function(req, res) {
 });
 
 app.get("/country", async function(req, res) {
+    // Initialize lists for the select option boxes within the Country Page
+    var countryList = [];
+    var continentList = [];
+    var regionList = [];
+
+    // Get the option list within the Country textbox
+    var sqlAllCountries = "SELECT country.Name AS countryName FROM country";
+    const allCountries = await db.query(sqlAllCountries);
+    for (var row of allCountries) {
+        // For each iteration, add the new elements into the cityList
+        countryList.push(row.countryName);
+    }
+    
+    // Get the option list within the Continent textbox
+    var sqlAllContinents = "SELECT country.Continent AS countryContinent FROM country \
+    GROUP BY countryContinent";
+    const allContinents = await db.query(sqlAllContinents);
+    for (var row of allContinents) {
+        continentList.push(row.countryContinent);
+    }
+
+    // Get the option list within the Region textbox
+    var sqlAllRegions = "SELECT country.Region AS countryRegion FROM country \
+    GROUP BY countryRegion";
+    const allRegions = await db.query(sqlAllRegions);
+    for (var row of allRegions) {
+        regionList.push(row.countryRegion);
+    }
+
     // Initialize the cookies that hold an object with all 
     // the cookie key-values pairs
     const cookies = req.cookies;
     // Declare a variable to store the 'response' value (name of cookie)
-    var countryResponse = cookies['countryResponse'];
-    var rankResponse = cookies['rankResponse'];
-    // Initialize an object: 'country'
-    var country;
+    var countryInput = cookies['countryCountryInput'];
+    var continentInput = cookies['continentCountryInput'];
+    var regionInput = cookies['regionCountryInput'];
+    var rankInput = cookies['rankCountryInput'];
 
-    // Construct a query to receive all the country names from database
-    var sql = "SELECT Name FROM country";
-    // Receive the results and store them inside a variable
-    const results = await db.query(sql);
-    // Initialize a list to store all the dictionary values from 'results'
-    var countryList = [];
+    // Initialize a list that contains all potential input from textboxes
+    var checkTextboxes = [countryInput, continentInput, regionInput];
+    // Determine which textbox had the submitted input
+    var userInput = activeCityResponse(checkTextboxes);
 
-    // Iterate throughout the 'results' dictionary
-    for(var nation of results) {
-        // Add the 'Name' of the country (nation) into the countryList
-        countryList.push(nation["Name"]);
+    // Set a condition if all inputs were empty
+    if (userInput == false) {
+        userInput = '';
     }
 
-    // Determine if the object has no value
-    if (isEmpty(countryResponse) == true) {
-        // When initally rendering the 'country' page, we
-        // will need a blank country object to avoid errors
-        countryResponse = '';
-        country = new Country(countryResponse);
-        //await country.getAllInitially();
+    // Create an object for the Country table data
+    var country = new Country(userInput);
+
+    try {
+        if (userInput == '') {
+            await country.emptyResponse();
+        } else if (userInput == countryInput && countryInput == "Select All") {
+            await country.selectAllCountries();
+        // If the input was within the City Textbox
+        } else if (userInput == countryInput && countryInput != "Select All") {
+            await country.selectSpecificCountry();
+        // If the input was within the Continent Textbox
+        } else if (userInput == continentInput) {
+            await country.selectCountriesFromContinent();
+        // If the input was within the Region Textbox
+        } else if (userInput == regionInput) {
+            await country.selectCountriesFromRegion();
+        } else {
+            await country.emptyResponse();
+        }
+    } catch(err) {
+        await country.emptyResponse();
+    }
+    
+    // Edit the city.data based on the input of the Rank Numberbox
+    if (isEmpty(rankInput)) {
+        rankInput = 0;
     } else {
-        country = new Country(countryResponse);
-        // Get the details that correspond with the inputted country
-        await country.getCountryDetails();
+        // Filter city.data to only include the data within the rank range
+        country.data = country.data.filter(function(value, index, arr){
+            return index <= rankInput - 1;
+        });
     }
-
-    if (isEmpty(rankResponse) == false) {
-        country = new Country(rankResponse);
-        await country.rankCountryByPopulation();
-        //console.log(country);
-    }
-
-    // Render the 'country' page and pass country values and countryList data
-    res.render("country", {country:country, countryList:countryList});
+    // Render the 'city' page and pass some data into the page
+    res.render("country", {country:country, countryList:countryList, 
+        continentList:continentList, regionList:regionList});
 });
 
-app.get("/capital-city", async function(req, res) {
-    res.render("capital-city");
-});
-
-app.post('/received-response', function (req, res) {
+app.post("/country-response", function(req, res) {
     // Get the submitted value from the user
     var params = req.body;
-    //var country = new Country(params.country);
 
-    // Set a cookie based on the country text-box input
-    res.cookie('countryResponse', params.country);
-    res.cookie('rankResponse', params.rank);
+    // Set a cookie based on each text-box input on the Country Page
+    res.cookie('countryCountryInput', params.countryCountryInput);
+    res.cookie('continentCountryInput', params.continentCountryInput);
+    res.cookie('regionCountryInput', params.regionCountryInput);
+    res.cookie('rankCountryInput', params.rankCountryInput);
     
     // After setting the cookie, redirect to the 'country-report' endpoint
     res.redirect('/country');

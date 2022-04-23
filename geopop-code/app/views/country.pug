@@ -1,84 +1,177 @@
 extends layout
 block content
     .main-content
-    <!-- Construct a rectangle-like structure on top of the webpage -->
-    div(class="container text-center")
-        <!-- Align the header in the center of the document -->
-        div(class="py-4 bg-dark text-light rounded" style="text-align:center")
-            <!-- Place the Globe icon next to the 'Geopop' Header -->
-            h1(i class="fa fa-globe" aria-hidden="true" style="font-size:50px")  Geopop
+    <!-- Create the navbar -->
+    nav
+        div(class="navContainer")
+            h1(id="geopopTitle") Geopop
 
-        <!-- Construct a Country text box -->
-        div(class="d-flex justify-content-center")
-            form(action='/received-response' method='POST' class="w-75")
-                div(class="pt-4")
-                    div(class="input-group mb-2")
-                        div(class="input-group-prepend")
-                            <!-- Add icon next to the textbox -->
-                            div(class="input-group-text bg-warning" i class="fa fa-map-marker" aria-hidden="true") 
-                        input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Country" name="country" list="countries" value=country.Name)
+            div(class="navMenu")
+                a(href="/" class="isActive") Home
+                a(href="#") About
+                a(href="#") Reports
+                a(href="#") Contact
 
-                div(class="row pt-2")
-                    <!-- Create a Rank text box -->
-                    div(class="col")
-                        div(class="input-group mb-2")
-                            div(class="input-group-prepend")
-                                <!-- Add icon next to the textbox -->
-                                div(class="input-group-text bg-warning" i class="fa fa-sort-numeric-desc" aria-hidden="true") 
-                            input(type="number" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Rank by Pop" name="rank")
-                    <!-- Create an Order text box -->
-                    div(class="col")
-                        div(class="input-group mb-2")
-                            div(class="input-group-prepend")
-                                <!-- Add icon next to the textbox -->
-                                div(class="input-group-text bg-warning" i class="fa fa-sort" aria-hidden="true") 
-                            input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Order" name="order" disabled="true")
+            button(class="hamburger isActive")
+                span
+                span
+                span
 
-                <!-- Let's create some buttons -->
-                div(class="d-flex justify-content-center")
-                    - const bStyles = {"margin": "1.5em 0.6em", "padding": "0.5em 2.4em"};
-                    button(style=bStyles id="btn-delete" class="btn btn-danger" i class="fa fa-trash" aria-hidden="true" name="delete" dat-toggle="tooltip" data-placement="bottom" title="Delete" disabled="true") 
-                    button(style=bStyles id="btn-save" class="btn btn-info" i class="fa fa-floppy-o" aria-hidden="true" name="save" dat-toggle="tooltip" data-placement="bottom" title="Save" disabled="true") 
-                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create") 
+    <!-- Create the banner -->
+    div(class="banner" id="countryBanner")
+    div(class="anchor")
+        div(class="bannerContent")
+            h1(id="countryBannerHeader")
+                span Country Report
 
-                div(class="pt-4")
-                    div(class="input-group mb-2")
-                        div(class="input-group-prepend")
-                            <!-- Add icon next to the textbox -->
-                            div(class="input-group-text bg-warning" i class="fa fa-map-marker" aria-hidden="true") 
-                        input(type="text" autocomplete="off" class="form-control" id="inlineFormInputGroup" placeholder="Country" name="country" list="countries" value=country.Name)
+    div(class="bannerTail")
+        svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
+            path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
 
-            datalist(id="countries")
-                for country in countryList
-                    option(value=country)
+    <!-- Create the city dropdown box -->
+    div(class="formtwo")
+        form(action='/country-response' method='POST' class="w-75")
+            <!-- Enable padding only on the top -->
+            div(class="row pt-2" id="textboxes")
+                div(class="col mr-n5")
+                    <!-- Build the Country Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="countries" name="countryCountryInput" id="countryTextbox")
+                        label(for="" class="form__label") Country
 
-        <!-- Bootstrap table -->
-        div(class="d-flex table-data")
-            - const tStyles = {"margin": "1em 10em"};
-            table(style=tStyles class="table table-striped table-dark")
-                <!-- Add the Table Headers as a Row -->
-                thead(class="thead-dark")
-                    tr
-                        th Code
-                        th Name
-                        th Continent
-                        th Region
-                        th Population
-                        th Capital
-                <!-- Add the Results from the Country Response -->
-                tbody(id="tbody")
-                    for element in country.data
-                        tr
-                            td #{element.Code}
-                            td #{element.Name}
-                            td #{element.Continent}
-                            td #{element.Region}
-                            td #{element.Population}
-                            td #{element.Capital}
+                <!-- Column 2: Continent Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Continent Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentCountryInput" id="continentTextbox")
+                        label(for="" class="form__label") Continent
 
-                        
+                <!-- Column 3: Region Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Region Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionCountryInput" id="regionTextbox")
+                        label(for="" class="form__label") Region
+
+                <!-- Column 4: Rank Numberbox -->
+                div(class="col mr-n5")
+                    div(class="form__div")
+                        input(type="number" class="form__input" placeholder=" " name="rankCountryInput" min="1")
+                        label(for="" class="form__label") Rank
+
+                <!-- Placement of the Submit Button -->
+                div(class="col mr-n5")
+                    - const bStyles = {"margin": ".35em"};
+                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
+       
+        <!-- Input all the countries within the datalist for the Country textbox -->
+        datalist(id="countries")
+            option(value="Select All")
+            for country in countryList
+                option(value=country) 
+
+        <!-- Input all the continents within the datalist for the Continent textbox -->
+        datalist(id="continents")
+            for continent in continentList
+                option(value=continent)
+
+        <!-- Input all the regions within the datalist for the Region textbox -->
+        datalist(id="regions")
+            for region in regionList
+                option(value=region)
+
+    <!-- The Country Report Table -->
+    div(class="countryTable")
+        - const tStyles = {"margin": "auto 12.5em"};
+        table(style=tStyles class="sticky tableSortable" id="countryTable")
+            <!-- Add the Table Headers as a Row -->
+            thead
+                tr
+                    th Code
+                    th Country
+                    th Continent
+                    th Region
+                    th(id="popHeader") Population
+                        div(class="countryToggle" id="caretDown")
+                            i(class="fa fa-caret-down" aria-hidden="true" id="icon")
+                    th Capital
+            
+            <!-- Add the Results from the City Response -->
+            tbody
+                for element in country.data
+                    tr(id="tableData")
+                        td #{element.Code}
+                        td #{element.Country}
+                        td #{element.Continent}
+                        td #{element.Region}
+                        td #{element.Population}
+                        td #{element.Capital}
+
+    div(class="spaceSeparation")
+    footer(class="footerDistributed")
+        div(class="footerLeft")
+            h3 Kamino#[span Softworks]
+
+            p(class="footerCompanyCopyright") Copyright © 2022. #[strong All rights reserved.]
+
+        div(class="mediaIcons")
+            a(href="#")
+                i.fab.fa-facebook(aria-hidden="true")
+            a(href="#" i class="fa-brands fa-twitter")
+            a(href="#" i class="fa-brands fa-instagram")
+            a(href="#" i class="fa-brands fa-linkedin-in")
+            a(href="#" i class="fa-brands fa-youtube")
+
+    style
+        include ./../app.js     
     <!-- Adding Bootstrap components (jQuery, Popper.js) to our application -->
     <!-- These components will be utilized for our more interactive features and designs -->
     script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
     script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
     script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+    script.
+        const pop = document.getElementById("popHeader") 
+        const caret = document.getElementById("caretDown");
+        const icon = document.getElementById("icon");
+        var open = false;
+
+        pop.addEventListener("click", function() {
+            if(open) {
+                icon.className = 'fa fa-caret-down';
+            } else {
+                icon.className = 'fa fa-caret-down open';
+            }
+            open = !open;
+        });
+
+        function sortTableByColumn(table, column, asc = true) {
+            const dirModifier = asc ? 1 : -1;
+            const tBody = table.tBodies[0];
+            const rows = Array.from(tBody.querySelectorAll("tr"));
+
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+                const aColText = Number(a.querySelector(`td:nth-child(${ column + 1})`));
+                const bColText = Number(b.querySelector(`td:nth-child(${ column + 1})`));
+
+                return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);    
+            });
+
+            // Remove all exisiting TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(asc);
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(!asc);
+        }
+
+        populationHeader = document.getElementById("popHeader") 
+
+        populationHeader.addEventListener('click', () => {
+            sortTableByColumn(document.getElementById("countryTable"), 4, true);   
+        });

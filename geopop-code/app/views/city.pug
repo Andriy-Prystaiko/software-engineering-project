@@ -28,119 +28,120 @@ block content
         svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
             path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
     
-        <!-- Create the city dropdown box -->
-        div(class="lform")
-            form(action='/city-response' method='POST' class="w-75")
-                <!-- Enable padding only on the top -->
-                div(class="row pt-2" id="textboxes")
-                    div(class="col mr-n5")
-                        <!-- Build the City Textbox -->
-                        div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="cities" name="cityCityInput" id="cityTextbox")
-                            label(for="" class="form__label") City
+    <!-- Create the city dropdown box -->
+    div(class="lform")
+        form(action='/city-response' method='POST' class="w-75")
+            <!-- Enable padding only on the top -->
+            div(class="row pt-2" id="textboxes")
+                div(class="col mr-n5")
+                    <!-- Build the City Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="cities" name="cityCityInput" id="cityTextbox")
+                        label(for="" class="form__label") City
 
-                    <!-- Column 2: Continent Textbox -->
-                    div(class="col mr-n5")
-                        <!-- Build the Continent Textbox -->
-                        div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput" id="continentTextbox")
-                            label(for="" class="form__label") Continent
+                <!-- Column 2: Continent Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Continent Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentCityInput" id="continentTextbox")
+                        label(for="" class="form__label") Continent
 
-                    <!-- Column 3: Region Textbox -->
-                    div(class="col mr-n5")
-                        <!-- Build the Region Textbox -->
-                        div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput" id="regionTextbox")
-                            label(for="" class="form__label") Region
+                <!-- Column 3: Region Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Region Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionCityInput" id="regionTextbox")
+                        label(for="" class="form__label") Region
 
-                    <!-- Column 4: Country Textbox -->
-                    div(class="col mr-n5")
-                        <!-- Build the Country Textbox -->
-                        div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput" id="countryTextbox")
-                            label(for="" class="form__label") Country
+                <!-- Column 4: Country Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Country Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="countries" name="countryCityInput" id="countryTextbox")
+                        label(for="" class="form__label") Country
 
-                    <!-- Column 5: District Textbox -->
-                    div(class="col mr-n5")
-                        <!-- Build the District Textbox -->
-                        div(class="form__div")
-                            input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput" id="districtTextbox")
-                            label(for="" class="form__label") District
+                <!-- Column 5: District Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the District Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="districts" name="districtCityInput" id="districtTextbox")
+                        label(for="" class="form__label") District
 
-                    <!-- Column 6: Rank Numberbox -->
-                    div(class="col mr-n5")
-                        div(class="form__div")
-                            input(type="number" class="form__input" placeholder=" " name="rankCityInput" min="1")
-                            label(for="" class="form__label") Rank
+                <!-- Column 6: Rank Numberbox -->
+                div(class="col mr-n5")
+                    div(class="form__div")
+                        input(type="number" class="form__input" placeholder=" " name="rankCityInput" min="1")
+                        label(for="" class="form__label") Rank
 
-                    <!-- Placement of the Submit Button -->
-                    div(class="col mr-n5")
-                        - const bStyles = {"margin": ".35em"};
-                        button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
+                <!-- Placement of the Submit Button -->
+                div(class="col mr-n5")
+                    - const bStyles = {"margin": ".35em"};
+                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
 
 
-            <!-- Input all the cities within the datalist for the city-textbox -->
-            datalist(id="cities")
-                option(value="Select All")
-                for city in cityList
-                    option(value=city)  
+        <!-- Input all the cities within the datalist for the city-textbox -->
+        datalist(id="cities")
+            option(value="Select All")
+            for city in cityList
+                option(value=city)  
 
-            <!-- Input all the continents within the datalist for the continent textbox -->
-            datalist(id="continents")
-                for continent in continentList
-                    option(value=continent)
+        <!-- Input all the continents within the datalist for the continent textbox -->
+        datalist(id="continents")
+            for continent in continentList
+                option(value=continent)
 
-            <!-- Input all the regions within the datalist for the Regions textbox -->
-            datalist(id="regions")
-                for region in regionList
-                    option(value=region)
+        <!-- Input all the regions within the datalist for the Regions textbox -->
+        datalist(id="regions")
+            for region in regionList
+                option(value=region)
 
-            <!-- Input all the countries within the datalist for the Countries textbox -->
-            datalist(id="countries")
-                for country in countryList
-                    option(value=country)
+        <!-- Input all the countries within the datalist for the Countries textbox -->
+        datalist(id="countries")
+            for country in countryList
+                option(value=country)
                     
-            <!-- Input all the districts within the datalist for the Districts textbox -->
-            datalist(id="districts")
-                for district in districtList
-                    option(value=district)
+        <!-- Input all the districts within the datalist for the Districts textbox -->
+        datalist(id="districts")
+            for district in districtList
+                option(value=district)
 
-        <!-- The City Report Table -->
-        div(class="cityTable")
-            - const tStyles = {"margin": "auto 12.5em"};
-            table(style=tStyles class="sticky tableSortable" id="cityTable")
-                <!-- Add the Table Headers as a Row -->
-                thead
-                    tr
-                        th City
-                        th Country
-                        th District
-                        th(id="popHeader") Population
-                            div(class="toggle" id="caretDown")
-                                i(class="fa fa-caret-down" aria-hidden="true" id="icon")
+    <!-- The City Report Table -->
+    div(class="cityTable")
+        - const tStyles = {"margin": "auto 12.5em"};
+        table(style=tStyles class="sticky tableSortable" id="cityTable")
+            <!-- Add the Table Headers as a Row -->
+            thead
+                tr
+                    th City
+                    th Country
+                    th District
+                    th(id="popHeader") Population
+                        div(class="toggle" id="caretDown")
+                            i(class="fa fa-caret-down" aria-hidden="true" id="icon")
 
-                <!-- Add the Results from the Country Response -->
-                tbody
-                    for element in city.data
-                        tr(id="tableData")
-                            td #{element.Name}
-                            td #{element.Country}
-                            td #{element.District}
-                            td #{element.Population}
+            <!-- Add the Results from the City Response -->
+            tbody
+                for element in city.data
+                    tr(id="tableData")
+                        td #{element.Name}
+                        td #{element.Country}
+                        td #{element.District}
+                        td #{element.Population}
 
-        div(class="spaceSeparation")
-        footer(class="footerDistributed")
-            div(class="footerLeft")
-                h3 Kamino#[span Softworks]
+    div(class="spaceSeparation")
+    footer(class="footerDistributed")
+        div(class="footerLeft")
+            h3 Kamino#[span Softworks]
 
-                p(class="footerCompanyName") Copyright © 2022. #[strong All rights reserved.]
+            p(class="footerCompanyCopyright") Copyright © 2022. #[strong All rights reserved.]
 
-            div(class="mediaIcons")
-                a(href="#" i class="fa-brands fa-facebook") 
-                a(href="#" i class="fa-brands fa-twitter")
-                a(href="#" i class="fa-brands fa-instagram")
-                a(href="#" i class="fa-brands fa-linkedin-in")
-                a(href="#" i class="fa-brands fa-youtube")
+        div(class="mediaIcons")
+            a(href="#")
+                i.fab.fa-facebook(aria-hidden="true")
+            a(href="#" i class="fa-brands fa-twitter")
+            a(href="#" i class="fa-brands fa-instagram")
+            a(href="#" i class="fa-brands fa-linkedin-in")
+            a(href="#" i class="fa-brands fa-youtube")
 
 
     style

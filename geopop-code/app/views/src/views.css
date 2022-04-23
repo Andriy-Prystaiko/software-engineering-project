@@ -58,15 +58,6 @@ nav {
     padding: 16px 32px;
 }
 
-#cityBannerHeader {
-    font-family: Oswald;
-    color: #FFF;
-    font-size: 45px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
 /* Style the GEOPOP logo within the navbar */
 #geopopTitle {
     font-family: Roboto;
@@ -149,6 +140,30 @@ nav {
     }
 }
 
+/* Detail the content within the banner of the Country Page */
+#countryBanner {
+    position: relative; 
+    background: linear-gradient(to bottom right, rgba(11, 13, 29, 0.548), rgba(0, 0, 0, 0.3)), url(../images/country-banner3.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    background-position: 50% 40%;
+    /*border: 5px solid black;*/
+    opacity: .9;
+    z-index: 1;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+#countryBannerHeader {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 /* Detail the content within the banner of the City Page */
 #cityBanner {
     position: relative; 
@@ -164,6 +179,16 @@ nav {
     -webkit-filter: blur(2px);
     -webkit-transform: translate3d(0, 0, 0);
 }
+
+#cityBannerHeader {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 /* Style the general content of all background banners */
 .bannerContent {
     background-color: rgb(0,0,0); 
@@ -215,7 +240,17 @@ nav {
     fill: #23242a;
 }
 
-/* Table formatting */
+/* Country Table formatting */
+.countryTable {
+    width: 90%;
+    height: 405px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 0;
+    margin-left: 25px;
+}
+
+/* City Table formatting */
 .cityTable{
     width: 90%;
     height: 405px;
@@ -264,7 +299,12 @@ th{
 
 .toggle {
     position: absolute;
-    margin: -8px 190px;
+    margin: -25px 190px;
+}
+
+.countryToggle {
+    position: absolute;
+    margin: -25px 150px;
 }
 
 .fa-caret-down{
@@ -319,12 +359,23 @@ body #tableData:hover {
 }
 
 /* Form formatting */
+
+.formtwo {
+    display: flex;
+    justify-content: center;
+    /*margin: 125px;*/
+    position:relative;
+    margin: 2.5rem;
+    margin-bottom: 20px;
+    margin-left: 80px;
+}
+
 .lform {
     display: flex;
     justify-content: center;
     /*margin: 125px;*/
     position:relative;
-    margin: 2rem;
+    margin: 2.5rem;
     margin-bottom: 20px;
     margin-left: 80px;
 }
@@ -366,7 +417,7 @@ body #tableData:hover {
 .form__label {
     position: absolute;
     left: 1rem;
-    top: 1.5rem;
+    top: 0.7rem;
     padding: 0 .25rem;
     background-color: #fff;
     color: var(--input-color);
@@ -406,15 +457,6 @@ footer {
 .spaceSeparation {
     height: 50px;
 }
-/*@media (max-height: 800px)*/
-/*{*/
-    /*footer{*/
-        /*position: static;*/
-    /*}*/
-    /*header {*/
-        /*padding-top: 15px;*/
-    /*}*/
-/*}*/
 
 .footerDistributed{
     background-color: #23242a;
@@ -428,12 +470,13 @@ footer {
     max-height: 145px;
 }
 
-.footerDistributed .footerLeft, .footerDistributed .footerCenter, .footerDistributed .footRight{
+.footerDistributed .footerLeft {
     display: inline-block;
     vertical-align: top;
+    margin-top: 20px;
 }
 
-.footerDistributed .footLeft {
+.footerDistributed .footerLeft {
     width: 30%;
 }
 
@@ -449,104 +492,18 @@ footer {
     font-family: 'Poppins';
 }
 
-.footerDistributed.footerLinks {
-    color: #fff;
-    margin: 20px 0 12px;
-}
-
-.footerDistributed .footerLinks a {
-    display: inline-block;
-    line-height: 1.8;
-    text-decoration: none;
-    color: #fff;
-}
-
-.footerDistributed .footerCompanyName {
+.footerDistributed .footerCompanyCopyright {
     color: #8f9296;
     font-size: 14px;
     font-weight: normal;
-    margin: 25px 0;
-}
-
-.footerDistributed .footerCenter {
-    width: 35%;
-    left: 50px;
-    display: flex;
-}
-
-.footerDistributed .footerCenter i {
-    background-color: #33383b;
-    color: #ffff;
-    font-size: 24px;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 42px;
-    margin: 10px 15px;
-    vertical-align: middle;
-}
-
-.footerDistributed .footerCenter i.fa-envelope {
-    font-size: 17px;
-    line-height: 38px;
-}
-
-.footerDistributed .footerCenter p {
-    display: inline-block;
-    color: #ffff;
-    vertical-align: middle;
-    margin: 0;
-}
-
-.footerDistributed .footerCenter p span {
-    display: block;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 2;
-}
-
-.footerDistributed .footerCenter p a {
-    color:rgba(58, 127, 192, 0.973);
-    text-decoration: none;
-}
-
-.footerDistributed .footerRight {
-    width: 30%;
-}
-
-.footerDistributed .footerCompanyAbout {
-    line-height: 20px;
-    color: #fff;
-    font-size: 13px;
-    font-weight: normal;
-    margin: 0;
-}
-
-.footerDistributed .footerCompanyAbout span {
-    display: block;
-    color: #ffff;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-@media(max-width: 880px) {
-    .footerDistributed .footerLinks, .footerDistributed .footerCenter, .footerDistributed .footerRight {
-        display: block;
-        width: 100%;
-        margin-bottom: 40px;
-        text-align: center;
-    }
-    .footerDistributed .footerCenter i {
-        margin-left: 0;
-    }
+    margin: 20px 0;
+    margin-top: auto;
 }
 
 .mediaIcons {
     display: flex;
     margin-left: 1035px;
-    margin-top: -70px;
+    margin-top: -65px;
 }
 
 .mediaIcons a {
