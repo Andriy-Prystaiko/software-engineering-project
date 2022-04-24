@@ -18,17 +18,18 @@ block content
                 span
 
     <!-- Create the banner -->
-    div(class="banner" id="countryBanner")
+    div(class="banner" id="capCityBanner")
     div(class="anchor")
         div(class="bannerContent")
-            h1(id="countryBannerHeader")
-                span Country Report
+            h1(id="capCityBannerHeader")
+                span Capital City Report
 
     div(class="bannerTail")
         svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
             path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
 
-    <!-- Create the city dropdown box -->
+    
+    <!-- Create the capital city dropdown box -->
     div(class="capitalCityForm")
         form(action='/capital-city-response' method='POST' class="w-75")
             <!-- Enable padding only on the top -->
@@ -65,10 +66,10 @@ block content
                     button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
        
         <!-- Input all the countries within the datalist for the Country textbox -->
-        datalist(id="countries")
+        datalist(id="capitalCities")
             option(value="Select All")
-            for country in countryList
-                option(value=country) 
+            for capcity in capCityList
+                option(value=capcity) 
 
         <!-- Input all the continents within the datalist for the Continent textbox -->
         datalist(id="continents")
@@ -80,22 +81,21 @@ block content
             for region in regionList
                 option(value=region)
 
-    <!-- The Country Report Table -->
-    div(class="countryTable")
+    <!-- The Capital City Report Table -->
+    div(class="capCityTable")
         - const tStyles = {"margin": "auto 12.5em"};
-        table(style=tStyles class="sticky tableSortable" id="countryTable")
+        table(style=tStyles class="sticky tableSortable" id="capCityTable")
             <!-- Add the Table Headers as a Row -->
             thead
                 tr
                     th Capital City
                     th Country
                     th(id="popHeader") Population
-                        div(class="countryToggle" id="caretDown")
+                        div(class="capCityToggle" id="caretDown")
                             i(class="fa fa-caret-down" aria-hidden="true" id="icon")
-            
             <!-- Add the Results from the City Response -->
             tbody
-                for element in country.data
+                for element in capitalCity.data
                     tr(id="tableData")
                         td #{element.CapitalCity}
                         td #{element.Country}
@@ -115,7 +115,9 @@ block content
             a(href="#" i class="fa-brands fa-instagram")
             a(href="#" i class="fa-brands fa-linkedin-in")
             a(href="#" i class="fa-brands fa-youtube")
-    
+
+
+                
 
 
     style

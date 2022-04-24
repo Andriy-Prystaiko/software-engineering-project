@@ -140,6 +140,30 @@ nav {
     }
 }
 
+/* Detail the content within the banner of the Capital City Page */
+#capCityBanner {
+    position: relative; 
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.651), rgba(55, 123, 161, 0.342)), url(../images/capcity4.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    background-position: 50% 40%;
+    /*border: 5px solid black;*/
+    opacity: .9;
+    z-index: 1;
+    filter: blur(.1px);
+    -webkit-filter: blur(.1px);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+#capCityBannerHeader {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 /* Detail the content within the banner of the Country Page */
 #countryBanner {
     position: relative; 
@@ -240,6 +264,15 @@ nav {
     fill: #23242a;
 }
 
+.capCityTable {
+    width: 90%;
+    height: 405px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 0;
+    margin-left: 25px;  
+}
+
 /* Country Table formatting */
 .countryTable {
     width: 90%;
@@ -305,6 +338,11 @@ th{
 .countryToggle {
     position: absolute;
     margin: -25px 150px;
+}
+
+.capCityToggle {
+    position: absolute;
+    margin: -25px 235px;
 }
 
 .fa-caret-down{

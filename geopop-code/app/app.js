@@ -36,6 +36,7 @@ app.use(bodyParser.json());
 // Get the models
 const { Country } = require('./models/country');
 const { City } = require('./models/city');
+const { CapitalCity } = require('./models/capital-city');
 
 // Use a get request to the HOME page.
 app.get("/", function(req, res){
@@ -271,17 +272,86 @@ app.get("/country", async function(req, res) {
 
 app.get("/capital-city", async function(req, res) {
     // Initialize lists for the select option boxes within the Country Page
-    var capCityist = [];
+    var capCityList = [];
     var continentList = [];
     var regionList = [];
 
-    // Get the option list within the Country textbox
-    var sqlAllCountries = "SELECT country.Name AS countryName FROM country";
-    const allCountries = await db.query(sqlAllCountries);
-    for (var row of allCountries) {
-        // For each iteration, add the new elements into the cityList
-        countryList.push(row.countryName);
+    // Get the option list within the Capital City textbox
+    var sqlAllCapCity = "SELECT country.CapitalCity AS CapitalCity FROM country";
+    const allCapCities = await db.query(sqlAllCapCity);
+    for (var row of allCapCities) {
+        // For each iteration, add the new elements into the capCityList
+        capCityList.push(row.CapitalCity);
     }
+
+    // Get the option list within the Continent textbox
+    var sqlAllContinents = "SELECT country.Continent AS Continent FROM country \
+    GROUP BY country.Continent";
+    const allContinents = await db.query(sqlAllContinents);
+    for (var row of allContinents) {
+        // For each iteration, add the new elements into the continentList
+        continentList.push(row.Continent);
+    }
+
+    // Get the option list within the Region textbox
+    var sqlAllRegions = "SELECT country.Region AS Region FROM country \
+    GROUP BY country.Region";
+    const allRegions = await db.query(sqlAllRegions);
+    for (var row of allRegions) {
+        // For each iteration, add the new elements into the continentList
+        regionList.push(row.Region);
+    }
+
+    // Initialize the cookies that hold an object with all 
+    // the cookie key-values pairs
+    const cookies = req.cookies;
+    // Declare a variable to store the 'response' value (name of cookie)
+    var capCityInput = cookies['capcityCapCityInput'];
+    var continentInput = cookies['continentCapCityInput'];
+    var regionInput = cookies['regionCapCityInput'];
+    var rankInput = cookies['rankCapCityInput'];
+
+    // Initialize a list that contains all potential input from textboxes
+    var checkTextboxes = [capCityInput, continentInput, regionInput];
+    // Determine which textbox had the submitted input
+    var userInput = activeCityResponse(checkTextboxes);
+
+    // Set a condition if all inputs were empty
+    if (userInput == false) {
+        userInput = '';
+    }
+
+    // Create an object for the city table data
+    var capitalCity = new CapitalCity(userInput);
+
+    if (userInput == '') {
+        await capitalCity.emptyResponse();
+    } else if (userInput == capCityInput && capCityInput == "Select All") {
+        await capitalCity.selectAllCapitalCities();
+    // If the input was within the Capital City Textbox
+    } else if (userInput == capCityInput && capCityInput != "Select All") {
+        await capitalCity.selectSpecificCapitalCity();
+    // If the input was within the Continent Textbox
+    } else if (userInput == continentInput) {
+        await capitalCity.selectCapitalCitiesFromContinent();
+    // If the input was within the Region Textbox
+    } else if (userInput == regionInput) {
+        await capitalCity.selectCapitalCitiesFromRegion();
+    } else {
+        await capitalCity.emptyResponse();
+    }
+
+    // Edit the city.data based on the input of the Rank Numberbox
+    if (isEmpty(rankInput)) {
+        rankInput = 0;
+    } else {
+        // Filter city.data to only include the data within the rank range
+        capitalCity.data = capitalCity.data.filter(function(value, index, arr){
+            return index <= rankInput - 1;
+        });
+    }
+    res.render("capital-city", {capitalCity:capitalCity, capCityList:capCityList, 
+        continentList:continentList, regionList:regionList});
 });
 
 app.post("/capital-city-response", function(req, res) {
