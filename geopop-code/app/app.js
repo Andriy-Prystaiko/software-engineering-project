@@ -54,8 +54,9 @@ function isEmpty(obj) {
     return true;
 }
 
+// Create a function that determines which textbox received the 
+// active input from the user
 function activeCityResponse(inputs) {
-    
     for (var input of inputs) {
         if (!(input == '')) {
             return input;
@@ -266,6 +267,35 @@ app.get("/country", async function(req, res) {
     // Render the 'city' page and pass some data into the page
     res.render("country", {country:country, countryList:countryList, 
         continentList:continentList, regionList:regionList});
+});
+
+app.get("/capital-city", async function(req, res) {
+    // Initialize lists for the select option boxes within the Country Page
+    var capCityist = [];
+    var continentList = [];
+    var regionList = [];
+
+    // Get the option list within the Country textbox
+    var sqlAllCountries = "SELECT country.Name AS countryName FROM country";
+    const allCountries = await db.query(sqlAllCountries);
+    for (var row of allCountries) {
+        // For each iteration, add the new elements into the cityList
+        countryList.push(row.countryName);
+    }
+});
+
+app.post("/capital-city-response", function(req, res) {
+    // Get the submitted value from the user
+    var params = req.body;
+
+    // Set a cookie based on each text-box input on the Country Page
+    res.cookie('capcityCapCityInput', params.capcityCapCityInput);
+    res.cookie('continentCapCityInput', params.continentCapCityInput);
+    res.cookie('regionCapCityInput', params.regionCapCityInput);
+    res.cookie('rankCapCityInput', params.rankCapCityInput);
+    
+    // After setting the cookie, redirect to the 'country-report' endpoint
+    res.redirect('/capital-city');
 });
 
 app.post("/country-response", function(req, res) {

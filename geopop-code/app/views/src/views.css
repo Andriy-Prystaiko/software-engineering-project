@@ -143,7 +143,7 @@ nav {
 /* Detail the content within the banner of the Country Page */
 #countryBanner {
     position: relative; 
-    background: linear-gradient(to bottom right, rgba(11, 13, 29, 0.548), rgba(0, 0, 0, 0.3)), url(../images/country-banner3.png);
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.651), rgba(55, 123, 161, 0.342)), url(../images/country-banner3.png);
     background-size: cover;
     background-repeat: no-repeat;
     height: 225px;
@@ -152,7 +152,7 @@ nav {
     opacity: .9;
     z-index: 1;
     filter: blur(2px);
-    -webkit-filter: blur(2px);
+    -webkit-filter: blur(.4px);
     -webkit-transform: translate3d(0, 0, 0);
 }
 #countryBannerHeader {
@@ -360,7 +360,17 @@ body #tableData:hover {
 
 /* Form formatting */
 
-.formtwo {
+.capitalCityForm {
+    display: flex;
+    justify-content: center;
+    /*margin: 125px;*/
+    position:relative;
+    margin: 2.5rem;
+    margin-bottom: 20px;
+    margin-left: 80px; 
+}
+
+.countryForm {
     display: flex;
     justify-content: center;
     /*margin: 125px;*/
@@ -370,7 +380,7 @@ body #tableData:hover {
     margin-left: 80px;
 }
 
-.lform {
+.cityForm {
     display: flex;
     justify-content: center;
     /*margin: 125px;*/

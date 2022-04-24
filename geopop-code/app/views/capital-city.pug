@@ -1,15 +1,121 @@
 extends layout
 block content
     .main-content
+    <!-- Create the navbar -->
+    nav
+        div(class="navContainer")
+            h1(id="geopopTitle") Geopop
+
+            div(class="navMenu")
+                a(href="/" class="isActive") Home
+                a(href="#") About
+                a(href="#") Reports
+                a(href="#") Contact
+
+            button(class="hamburger isActive")
+                span
+                span
+                span
+
     <!-- Create the banner -->
-    div(class="banner" id="capitalCityBanner")
+    div(class="banner" id="countryBanner")
+    div(class="anchor")
         div(class="bannerContent")
-            h1
-                span City Report
+            h1(id="countryBannerHeader")
+                span Country Report
 
     div(class="bannerTail")
         svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
             path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
+
+    <!-- Create the city dropdown box -->
+    div(class="capitalCityForm")
+        form(action='/capital-city-response' method='POST' class="w-75")
+            <!-- Enable padding only on the top -->
+            div(class="row pt-2" id="textboxes")
+                div(class="col mr-n5")
+                    <!-- Build the Capital City Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="capitalCities" name="capcityCapCityInput" id="capCityTextbox")
+                        label(for="" class="form__label") Capital City
+
+                <!-- Column 2: Continent Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Continent Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentCapCityInput" id="continentTextbox")
+                        label(for="" class="form__label") Continent
+
+                <!-- Column 3: Region Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Region Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionCapCityInput" id="regionTextbox")
+                        label(for="" class="form__label") Region
+
+                <!-- Column 4: Rank Numberbox -->
+                div(class="col mr-n5")
+                    div(class="form__div")
+                        input(type="number" class="form__input" placeholder=" " name="rankCapCityInput" min="1")
+                        label(for="" class="form__label") Rank
+
+                <!-- Placement of the Submit Button -->
+                div(class="col mr-n5")
+                    - const bStyles = {"margin": ".35em"};
+                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
+       
+        <!-- Input all the countries within the datalist for the Country textbox -->
+        datalist(id="countries")
+            option(value="Select All")
+            for country in countryList
+                option(value=country) 
+
+        <!-- Input all the continents within the datalist for the Continent textbox -->
+        datalist(id="continents")
+            for continent in continentList
+                option(value=continent)
+
+        <!-- Input all the regions within the datalist for the Region textbox -->
+        datalist(id="regions")
+            for region in regionList
+                option(value=region)
+
+    <!-- The Country Report Table -->
+    div(class="countryTable")
+        - const tStyles = {"margin": "auto 12.5em"};
+        table(style=tStyles class="sticky tableSortable" id="countryTable")
+            <!-- Add the Table Headers as a Row -->
+            thead
+                tr
+                    th Capital City
+                    th Country
+                    th(id="popHeader") Population
+                        div(class="countryToggle" id="caretDown")
+                            i(class="fa fa-caret-down" aria-hidden="true" id="icon")
+            
+            <!-- Add the Results from the City Response -->
+            tbody
+                for element in country.data
+                    tr(id="tableData")
+                        td #{element.CapitalCity}
+                        td #{element.Country}
+                        td #{element.Population}
+
+    div(class="spaceSeparation")
+    footer(class="footerDistributed")
+        div(class="footerLeft")
+            h3 Kamino#[span Softworks]
+
+            p(class="footerCompanyCopyright") Copyright © 2022. #[strong All rights reserved.]
+
+        div(class="mediaIcons")
+            a(href="#")
+                i.fab.fa-facebook(aria-hidden="true")
+            a(href="#" i class="fa-brands fa-twitter")
+            a(href="#" i class="fa-brands fa-instagram")
+            a(href="#" i class="fa-brands fa-linkedin-in")
+            a(href="#" i class="fa-brands fa-youtube")
+    
 
 
     style
