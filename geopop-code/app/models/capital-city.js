@@ -25,9 +25,8 @@ class CapitalCity {
     // Create a function to receive Capital City name, country and population
     async selectAllCapitalCities() {
         // Construct a query to receive the City name, country, district and population from the database
-        var sql = "SELECT country.CapitalCity AS CapitalCity, country.Name AS Country, city.Population \
-        FROM country, city WHERE country.CapitalCity = city.Name AND country.Code = city.CountryCode\
-        ORDER BY city.Population DESC";
+        var sql = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population AS Population \
+        FROM city, country WHERE city.ID = country.Capital ORDER BY city.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql);
     
@@ -47,9 +46,9 @@ class CapitalCity {
     // of a specific country selected
     async selectSpecificCapitalCity() {
         // Construct a query to receive the City name, country, district and population from the database
-        var sql = "SELECT country.CapitalCity AS CapitalCity, country.Name AS Country, city.Population \
-        FROM country, city WHERE country.CapitalCity = ? AND country.CapitalCity = city.Name AND \
-        country.Code = city.CountryCode ORDER BY city.Population DESC";
+        var sql = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population AS Population \
+        FROM city, country WHERE city.ID = country.Capital AND city.Name = ? \
+        ORDER BY city.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);
     
@@ -69,9 +68,9 @@ class CapitalCity {
     // of a specific continent selected
     async selectCapitalCitiesFromContinent() {
         // Construct a query to receive the City name, country, district and population from the database
-        var sql = "SELECT country.CapitalCity AS CapitalCity, country.Name AS Country, city.Population AS Population \
-        FROM country, city WHERE country.Continent = ? AND city.Name = country.CapitalCity AND \
-        country.Code = city.CountryCode ORDER BY city.Population DESC;";
+        var sql = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population AS Population \
+        FROM city, country WHERE city.ID = country.Capital AND country.Continent = ? \
+        ORDER BY city.Population DESC";
         
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);
@@ -92,9 +91,9 @@ class CapitalCity {
     // of a specific region selected
     async selectCapitalCitiesFromRegion() {
         // Construct a query to receive the City name, country, district and population from the database
-        var sql = "SELECT country.CapitalCity AS CapitalCity, country.Name AS Country, city.Population AS Population \
-        FROM country, city WHERE country.Region = ? AND city.Name = country.CapitalCity AND \
-        country.Code = city.CountryCode ORDER BY city.Population DESC;";
+        var sql = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population AS Population \
+        FROM city, country WHERE city.ID = country.Capital AND country.Region = ? \
+        ORDER BY city.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);
     

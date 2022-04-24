@@ -30,7 +30,7 @@ class Country {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT country.Code AS Code, country.Name AS Country, country.Continent AS \
         Continent, country.Region AS Region, country.Population AS Population, \
-        country.Capital AS Capital FROM country \
+        city.Name AS Capital FROM country, city WHERE country.Capital = city.ID \
         ORDER BY country.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql);
@@ -55,8 +55,8 @@ class Country {
     async selectSpecificCountry() {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT country.Code AS Code, country.Name AS Country, country.Continent AS \
-        Continent, country.Region AS Region, country.Population AS Population, country.Capital \
-        AS Capital FROM country WHERE country.Name = ? \
+        Continent, country.Region AS Region, country.Population AS Population, city.Name \
+        AS Capital FROM country, city WHERE country.Name = ? AND country.Capital = city.ID \
         ORDER BY country.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);
@@ -81,8 +81,8 @@ class Country {
     async selectCountriesFromContinent() {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT country.Code AS Code, country.Name AS Country, country.Continent AS \
-        Continent, country.Region AS Region, country.Population AS Population, country.Capital \
-        AS Capital FROM country WHERE country.Continent = ? \
+        Continent, country.Region AS Region, country.Population AS Population, city.Name \
+        AS Capital FROM country, city WHERE country.Continent = ? AND country.Capital = city.ID \
         ORDER BY country.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);
@@ -107,8 +107,8 @@ class Country {
     async selectCountriesFromRegion() {
         // Construct a query to receive the City name, country, district and population from the database
         var sql = "SELECT country.Code AS Code, country.Name AS Country, country.Continent AS \
-        Continent, country.Region AS Region, country.Population AS Population, country.Capital \
-        AS Capital FROM country WHERE country.Region = ? \
+        Continent, country.Region AS Region, country.Population AS Population, city.Name \
+        AS Capital FROM country, city WHERE country.Region = ? AND country.Capital = city.ID \
         ORDER BY country.Population DESC";
         // Receive the results and store them inside a variable
         const results = await db.query(sql, [this.response]);

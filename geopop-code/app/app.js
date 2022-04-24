@@ -277,7 +277,8 @@ app.get("/capital-city", async function(req, res) {
     var regionList = [];
 
     // Get the option list within the Capital City textbox
-    var sqlAllCapCity = "SELECT country.CapitalCity AS CapitalCity FROM country";
+    var sqlAllCapCity = "SELECT city.Name AS CapitalCity FROM city, country \
+    WHERE city.ID = country.Capital";
     const allCapCities = await db.query(sqlAllCapCity);
     for (var row of allCapCities) {
         // For each iteration, add the new elements into the capCityList
