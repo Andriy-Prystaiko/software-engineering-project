@@ -83,8 +83,10 @@ class Population {
         // Construct a query to receive the Continent name, population, population living 
         // in city an not living in city
         var sql = "SELECT country.Continent AS Name, SUM(DISTINCT country.Population) AS TotalPop, \
-        SUM(DISTINCT city.Population) AS InCityPop, SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population) \
-        AS OutCityPop FROM country, city WHERE country.Continent = ? AND country.Code = city.CountryCode \
+        SUM(DISTINCT city.Population) AS InCityPop, ROUND((SUM(DISTINCT city.Population) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS InCityPercent, SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population) \
+        AS OutCityPop, ROUND(((SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population)) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS OutCityPercent FROM country, city WHERE country.Continent = ? AND country.Code = city.CountryCode \
         GROUP BY country.Continent LIMIT 1";
 
         // Receive the results and store them inside a variable
@@ -96,9 +98,9 @@ class Population {
             rowDict["Name"] = row.Name;
             rowDict["TotalPop"] = row.TotalPop;
             rowDict["InCityPop"] = row.InCityPop;
-            rowDict["InCityPercent"] = '';
+            rowDict["InCityPercent"] = row.InCityPercent;
             rowDict["OutCityPop"] = row.OutCityPop;
-            rowDict["OutCityPercent"] = '';
+            rowDict["OutCityPercent"] = row.OutCityPercent;
             // For each iteration, add the new rowDict into the data array
             this.data.push(rowDict);
         }

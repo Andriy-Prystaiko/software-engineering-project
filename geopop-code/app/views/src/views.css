@@ -151,8 +151,8 @@ nav {
     /*border: 5px solid black;*/
     opacity: .9;
     z-index: 1;
-    filter: blur(.1px);
-    -webkit-filter: blur(.1px);
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
     -webkit-transform: translate3d(0, 0, 0);
 }
 #populationBannerHeader {
@@ -175,8 +175,8 @@ nav {
     /*border: 5px solid black;*/
     opacity: .9;
     z-index: 1;
-    filter: blur(.1px);
-    -webkit-filter: blur(.1px);
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
     -webkit-transform: translate3d(0, 0, 0);
 }
 #capCityBannerHeader {
