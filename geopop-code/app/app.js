@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 const { Country } = require('./models/country');
 const { City } = require('./models/city');
 const { CapitalCity } = require('./models/capital-city');
+const { Population } = require('./models/population');
 
 // Use a get request to the HOME page.
 app.get("/", function(req, res){
@@ -353,6 +354,101 @@ app.get("/capital-city", async function(req, res) {
     }
     res.render("capital-city", {capitalCity:capitalCity, capCityList:capCityList, 
         continentList:continentList, regionList:regionList});
+});
+
+app.get("/population", async function(req, res) {
+    // Initialize lists for the select option boxes within the Country Page
+    var countryList = [];
+    var continentList = [];
+    var regionList = [];
+
+    // Get the option list within the Country textbox
+    var sqlAllCountries = "SELECT country.Name AS Country FROM country \
+    GROUP BY country.Name";
+    const allCountries = await db.query(sqlAllCountries);
+    for (var row of allCountries) {
+        // For each iteration, add the new elements into the countryList
+        countryList.push(row.Country);
+    }
+
+    // Get the option list within the Continent textbox
+    var sqlAllContinents = "SELECT country.Continent AS Continent FROM country \
+    GROUP BY country.Continent";
+    const allContinents = await db.query(sqlAllContinents);
+    for (var row of allContinents) {
+        // For each iteration, add the new elements into the continentList
+        continentList.push(row.Continent);
+    }
+
+    // Get the option list within the Region textbox
+    var sqlAllRegions = "SELECT country.Region AS Region FROM country \
+    GROUP BY country.Region";
+    const allRegions = await db.query(sqlAllRegions);
+    for (var row of allRegions) {
+        // For each iteration, add the new elements into the continentList
+        regionList.push(row.Region);
+    }
+
+    // Initialize the cookies that hold an object with all 
+    // the cookie key-values pairs
+    const cookies = req.cookies;
+    // Declare a variable to store the 'response' value (name of cookie)
+    var countryInput = cookies['countryPopulationInput'];
+    var continentInput = cookies['continentPopulationInput'];
+    var regionInput = cookies['regionPopulationInput'];
+
+    // Initialize a list that contains all potential input from textboxes
+    var checkTextboxes = [countryInput, continentInput, regionInput];
+    // Determine which textbox had the submitted input
+    var userInput = activeCityResponse(checkTextboxes);
+    // Initialize a variable that indicates the header based on the userInput
+    var header = '';
+
+    // Set a condition if all inputs were empty
+    if (userInput == false) {
+        userInput = '';
+    }
+
+    // Create an object for the city table data
+    var population = new Population(userInput);
+    
+    try {
+        if (userInput == '') {
+            await population.emptyResponse();
+        // If the input was within the Country Textbox
+        } else if (userInput == countryInput) {
+            await population.getCountryPopulationData();
+            header = "Country";
+        // If the input was within the Region Textbox
+        } else if (userInput == regionInput) {
+            await population.getRegionPopulationData();
+            header = "Region";
+        // If the input was within the Continent Textbox
+        } else if (userInput == continentInput) {
+            await population.getContinentPopulationData();
+            header = "Continent";
+        } else {
+            await population.emptyResponse();
+        }
+    } catch(err) {
+        await population.emptyResponse();
+    }
+    
+    res.render("population", {population:population, header:header, countryList:countryList, 
+        continentList:continentList, regionList:regionList});
+});
+
+app.post("/population-response", function(req, res) {
+    // Get the submitted value from the user
+    var params = req.body;
+
+    // Set a cookie based on each text-box input on the Country Page
+    res.cookie('countryPopulationInput', params.countryPopulationInput);
+    res.cookie('continentPopulationInput', params.continentPopulationInput);
+    res.cookie('regionPopulationInput', params.regionPopulationInput);
+    
+    // After setting the cookie, redirect to the 'population' endpoint
+    res.redirect('/population');
 });
 
 app.post("/capital-city-response", function(req, res) {

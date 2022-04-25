@@ -140,6 +140,30 @@ nav {
     }
 }
 
+/* Detail the content within the banner of the Population Page */
+#populationBanner {
+    position: relative; 
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.651), rgba(55, 123, 161, 0.342)), url(../images/population-banner3.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    background-position: 50% 40%;
+    /*border: 5px solid black;*/
+    opacity: .9;
+    z-index: 1;
+    filter: blur(.1px);
+    -webkit-filter: blur(.1px);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+#populationBannerHeader {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 /* Detail the content within the banner of the Capital City Page */
 #capCityBanner {
     position: relative; 
@@ -262,6 +286,16 @@ nav {
 .bannerTail .shape-fill {
     /* fill: #012A63; */
     fill: #23242a;
+}
+
+
+.populationTable {
+    width: 90%;
+    height: 405px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 0;
+    margin-left: 25px;  
 }
 
 .capCityTable {
@@ -397,6 +431,16 @@ body #tableData:hover {
 }
 
 /* Form formatting */
+
+.populationForm {
+    display: flex;
+    justify-content: center;
+    /*margin: 125px;*/
+    position:relative;
+    margin: 2.5rem;
+    margin-bottom: 20px;
+    margin-left: 80px; 
+}
 
 .capitalCityForm {
     display: flex;

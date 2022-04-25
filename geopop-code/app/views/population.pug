@@ -1,0 +1,101 @@
+extends layout
+block content
+    .main-content
+    <!-- Create the navbar -->
+    nav
+        div(class="navContainer")
+            h1(id="geopopTitle") Geopop
+
+            div(class="navMenu")
+                a(href="/" class="isActive") Home
+                a(href="#") About
+                a(href="#") Reports
+                a(href="#") Contact
+
+            button(class="hamburger isActive")
+                span
+                span
+                span
+
+    <!-- Create the banner -->
+    div(class="banner" id="populationBanner")
+    div(class="anchor")
+        div(class="bannerContent")
+            h1(id="populationBannerHeader")
+                span Population Report
+
+    div(class="bannerTail")
+        svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
+            path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
+
+    
+    <!-- Create the capital city dropdown box -->
+    div(class="populationForm")
+        form(action='/population-response' method='POST' class="w-75")
+            <!-- Enable padding only on the top -->
+            div(class="row pt-2" id="textboxes")
+                div(class="col mr-n5")
+                    <!-- Build the Capital City Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="countries" name="countryPopulationInput" id="countryTextbox")
+                        label(for="" class="form__label") Country
+                
+                <!-- Column 2: Region Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Region Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="regions" name="regionPopulationInput" id="regionTextbox")
+                        label(for="" class="form__label") Region
+
+                <!-- Column 3: Continent Textbox -->
+                div(class="col mr-n5")
+                    <!-- Build the Continent Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="continents" name="continentPopulationInput" id="continentTextbox")
+                        label(for="" class="form__label") Continent
+
+                <!-- Placement of the Submit Button -->
+                div(class="col mr-n5")
+                    - const bStyles = {"margin": ".35em"};
+                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
+
+
+        <!-- Input all the countries within the datalist for the Country textbox -->
+        datalist(id="countries")
+            for country in countryList
+                option(value=country) 
+
+        <!-- Input all the regions within the datalist for the Region textbox -->
+        datalist(id="regions")
+            for region in regionList
+                option(value=region)
+
+        <!-- Input all the continents within the datalist for the Continent textbox -->
+        datalist(id="continents")
+            for continent in continentList
+                option(value=continent)
+
+    <!-- The Capital City Report Table -->
+    div(class="populationTable")
+        - const tStyles = {"margin": "auto 12.5em"};
+        table(style=tStyles class="sticky tableSortable" id="populationTable")
+            <!-- Add the Table Headers as a Row -->
+            thead
+                tr
+                    th #{header}
+                    th Total Population
+                    th In-City Population
+                    th In-City %
+                    th Out-of-City Population
+                    th Out-of-City %
+
+            <!-- Add the Results from the City Response -->
+            tbody
+                for element in population.data
+                    tr(id="tableData")
+                        td #{element.Name}
+                        td #{element.TotalPop}
+                        td #{element.InCityPop}
+                        td #{element.InCityPercent}
+                        td #{element.OutCityPop}
+                        td #{element.OutCityPercent}
