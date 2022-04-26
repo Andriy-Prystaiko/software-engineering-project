@@ -20,7 +20,7 @@
             <div class="navbar">
                 <ul>
                     <!-- Navigation items -->
-                    <li><a href="#">Sign in</a></li>
+                    <li><a href="/language">Sign in</a></li>
                     <li><a href="#">Sign up</a></li>
                 </ul>
             </div>
@@ -79,6 +79,16 @@
             </div>
 
         <section id="sectionTwo">
+            <div class="sectionTwocontainer">
+                <span class="staticText">World </span>
+                <ul class="dynamicText">
+                    <li><span>Languages</span></li>
+                    <li><span>Linguae</span></li>
+                    <li><span>Idiomas</span></li>
+                    <li><span>Teangacha</span></li>
+                </ul>
+
+            </div>
             <div class="langBars">
                 <!-- Creating the English bar -->
                 <div class="bar">
@@ -137,5 +147,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
         <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+        <script>
+            const text = document.querySelector(".secText");
+
+            const textLoad  = () => {
+                setTimeout(() => {
+                    text.textContent = " Languages"; 
+                }, 0);
+                setTimeout(() => {
+                    text.textContent = " Linguae"; 
+                }, 3800);
+            }
+
+            textLoad();
+            setInterval(textLoad, 7850);
+        </script>
     </body>
 </html>

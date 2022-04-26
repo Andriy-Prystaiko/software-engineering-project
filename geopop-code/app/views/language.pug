@@ -1,0 +1,144 @@
+extends layout
+block content
+    .main-content
+    <!-- Create the navbar -->
+    nav
+        div(class="navContainer")
+            h1(id="geopopTitle") Geopop
+
+            div(class="navMenu")
+                a(href="/" class="isActive") Home
+                a(href="#") About
+                a(href="#") Reports
+                a(href="#") Contact
+
+            button(class="hamburger isActive")
+                span
+                span
+                span
+
+    <!-- Create the banner -->
+    div(class="banner" id="languageBanner")
+    div(class="anchor")
+        div(class="bannerContent")
+            h1(id="languageBannerHeader")
+                span Language Report
+
+    div(class="bannerTail")
+        svg(data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none")
+            path(d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill")
+
+    <!-- Create the city dropdown box -->
+    div(class="languageForm")
+        form(action='/language-response' method='POST' class="w-75")
+            <!-- Enable padding only on the top -->
+            div(class="row pt-2" id="textboxes")
+                div(class="col mr-n5")
+                    <!-- Build the Language Textbox -->
+                    div(class="form__div")
+                        input(type="text" class="form__input" placeholder=" " list="languages" name="languageLanguageInput" id="languageTextbox")
+                        label(for="" class="form__label") Language
+
+                <!-- Column 2: Rank Numberbox -->
+                div(class="col mr-n5")
+                    div(class="form__div")
+                        input(type="number" class="form__input" placeholder=" " name="rankLanguageInput" min="1")
+                        label(for="" class="form__label") Rank
+
+                <!-- Placement of the Submit Button -->
+                div(class="col mr-n5")
+                    - const bStyles = {"margin": ".35em"};
+                    button(type="submit" style=bStyles id="btn-create" class="btn btn-success" i class="fa fa-plus-circle" aria-hidden="true" name="create" dat-toggle="tooltip" data-placement="bottom" title="Create")
+
+
+        <!-- Input all the cities within the datalist for the language textbox -->
+        datalist(id="languages")
+            option(value="Select All")
+            for language in languageList
+                option(value=language) 
+
+    <!-- The Language Report Table -->
+    div(class="languageTable")
+        - const tStyles = {"margin": "auto 12.5em"};
+        table(style=tStyles class="sticky tableSortable" id="languageTable")
+            <!-- Add the Table Headers as a Row -->
+            thead
+                tr
+                    th Language
+                    th(id="popHeader") Language Population
+                        div(class="languageToggle" id="caretDown")
+                            i(class="fa fa-caret-down" aria-hidden="true" id="icon")
+                    th Language Population % 
+
+            <!-- Add the Results from the City Response -->
+            tbody
+                for element in language.data
+                    tr(id="tableData")
+                        td #{element.Language}
+                        td #{element.LangPop}
+                        td #{element.LangPopPercent}
+
+    div(class="spaceSeparation")
+    footer(class="footerDistributed")
+        div(class="footerLeft")
+            h3 Kamino#[span Softworks]
+
+            p(class="footerCompanyCopyright") Copyright © 2022. #[strong All rights reserved.]
+
+        div(class="mediaIcons")
+            a(href="#")
+                i.fab.fa-facebook(aria-hidden="true")
+            a(href="#" i class="fa-brands fa-twitter")
+            a(href="#" i class="fa-brands fa-instagram")
+            a(href="#" i class="fa-brands fa-linkedin-in")
+            a(href="#" i class="fa-brands fa-youtube")
+
+    style
+        include ./../app.js 
+    script.
+
+        const pop = document.getElementById("popHeader") 
+        const caret = document.getElementById("caretDown");
+        const icon = document.getElementById("icon");
+        var open = false;
+
+        pop.addEventListener("click", function() {
+            if(open) {
+                icon.className = 'fa fa-caret-down';
+            } else {
+                icon.className = 'fa fa-caret-down open';
+            }
+            open = !open;
+        });
+
+        function sortTableByColumn(table, column, asc = true) {
+            const dirModifier = asc ? 1 : -1;
+            const tBody = table.tBodies[0];
+            const rows = Array.from(tBody.querySelectorAll("tr"));
+
+            // Sort each row
+            const sortedRows = rows.sort((a, b) => {
+                const aColText = Number(a.querySelector(`td:nth-child(${ column + 1})`));
+                const bColText = Number(b.querySelector(`td:nth-child(${ column + 1})`));
+
+                return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);    
+            });
+
+            // Remove all exisiting TRs from the table
+            while (tBody.firstChild) {
+                tBody.removeChild(tBody.firstChild);
+            }
+
+            // Re-add the newly sorted rows
+            tBody.append(...sortedRows);
+
+            // Remember how the column is currently sorted
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(asc);
+            table.querySelector(`th:nth-child(${ column + 1 })`).classList.toggle(!asc);
+        }
+
+        populationHeader = document.getElementById("popHeader") 
+
+        populationHeader.addEventListener('click', () => {
+            sortTableByColumn(document.getElementById("languageTable"), 1, true);   
+        });

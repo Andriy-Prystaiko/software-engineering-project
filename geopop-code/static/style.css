@@ -271,27 +271,7 @@ nav .navbar ul li img {
     filter: brightness(0.7);
 }
 
-.slantDesign {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    margin-top: 250px;
-}
-
-.slantDesign svg {
-    position: relative;
-    display: block;
-    width: calc(145% + 1.3px);
-    height: 75px;
-}
-
-.slantDesign .shape-fill {
-    fill: #0F0F10;
-}
-
+/* Detail the formatting for every section tag */
 section {
     position: relative;
     display: flex;
@@ -315,7 +295,7 @@ section {
     background: #fff;
     box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
     border-radius: 10px;
-    margin: 60px;
+    margin-top: -90px;
     margin-left: 60px;
     z-index: 2;
 }
@@ -374,23 +354,23 @@ section {
 }
 
 .bar .percentLine.english span {
-    width: 90%;
+    width: 11.42%;
 }
 
 .bar .percentLine.chinese span {
-    width: 60%;
+    width: 98.035%;
 }
 
 .bar .percentLine.hindi span {
-    width: 85%;
+    width: 13.346%;
 }
 
 .bar .percentLine.spanish span {
-    width: 50%;
+    width: 11.682%;
 }
 
 .bar .percentLine.arabic span {
-    width: 75%;
+    width: 7.694%;
 }
 
 .percentLine span::before {
@@ -429,23 +409,123 @@ section {
 }
 
 .percentLine.english span::after {
-    content: '90%';
+    content: '6%';
 }
 
 .percentLine.chinese span::after {
-    content: '60%';
+    content: '20%';
 }
 
 .percentLine.hindi span::after {
-    content: '85%';
+    content: '7%';
 }
 
 .percentLine.spanish span::after {
-    content: '50%';
+    content: '6%';
 }
 
 .percentLine.arabic span::after {
-    content: '75%';
+    content: '4%';
+}
+
+/* Typing Text Header (World Languages) */
+.sectionTwocontainer {
+    /*width: 246px;*/
+    overflow: hidden;
+    margin-left: 47rem;
+    margin-top: 45px;
+    margin-bottom: 0;
+    z-index: 100;
+    display: flex;
+}
+
+.sectionTwocontainer .staticText {
+    color: #fff;
+    font-size: 70px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sectionTwocontainer .dynamicText {
+    margin-top: 6px;
+    margin-left: 15px;
+    line-height: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.dynamicText li{
+    list-style: none;
+    color: #4070F4;
+    font-size: 70px;
+    font-weight: 600;
+    top: 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    animation: slide 12s steps(4) infinite;
+}
+@keyframes slide {
+    100% {
+        top: -360px;
+    }
+}
+
+.dynamicText li { 
+    position: relative;
+
+}
+
+.dynamicText li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0f0f10;
+    border-left: 2px solid #4070F4;
+    animation: typing 3s steps(10) infinite;
+}
+@keyframes typing {
+    40%,
+    60% {
+        left: calc(100% + 30px);
+    }
+    100% {
+        left: 0;
+    }
+}
+
+.sectionTwocontainer .sectionTwoText {
+    position: relative;
+    color: #4070F4;
+    font-size: 60px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sectionTwocontainer .sectionTwoText.firstText {
+    color: #fff;
+}
+
+.sectionTwoText.secText::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0f0f10;
+    border-left: 2px solid #4070F4;
+    animation: animateText 4s steps(11) infinite;
+}
+@keyframes animateText {
+    40%, 60% {
+        left: calc(100% + 4px);
+    }
+    100% {
+        left: 0%;
+    }
+
 }
 
 /* SWIPER */

@@ -38,6 +38,7 @@ const { Country } = require('./models/country');
 const { City } = require('./models/city');
 const { CapitalCity } = require('./models/capital-city');
 const { Population } = require('./models/population');
+const { Language } = require('./models/language');
 
 // Use a get request to the HOME page.
 app.get("/", function(req, res){
@@ -409,7 +410,7 @@ app.get("/population", async function(req, res) {
         userInput = '';
     }
 
-    // Create an object for the city table data
+    // Create an object for the population table data
     var population = new Population(userInput);
     
     try {
@@ -438,14 +439,89 @@ app.get("/population", async function(req, res) {
         continentList:continentList, regionList:regionList});
 });
 
+app.get("/language", async function(req, res) {
+    // Initialize lists for the select option boxes within the Language Page
+    var languageList = [];
+
+    // Get the option list within the Language textbox
+    var sqlAllLanguages = "SELECT countrylanguage.Language AS Language \
+    FROM countrylanguage GROUP BY countrylanguage.Language";
+    const allLanguages = await db.query(sqlAllLanguages);
+    for (var row of allLanguages) {
+        // For each iteration, add the new elements into the languageList
+        languageList.push(row.Language);
+    }
+
+    // Initialize the cookies that hold an object with all 
+    // the cookie key-values pairs
+    const cookies = req.cookies;
+    // Declare a variable to store the 'response' value (name of cookie)
+    var languageInput = cookies['languageLanguageInput'];
+    var rankInput = cookies['rankLanguageInput'];
+
+    // Initialize a list that contains all potential input from textboxes
+    var checkTextboxes = [languageInput];
+    // Determine which textbox had the submitted input
+    var userInput = activeCityResponse(checkTextboxes);
+
+    // Set a condition if all inputs were empty
+    if (userInput == false) {
+        userInput = '';
+    }
+
+    // Create an object for the language table data
+    var language = new Language(userInput);
+
+    try {
+        if (userInput == '') {
+            await language.emptyResponse();
+        // If the input was within the Country Textbox
+        } else if (userInput == languageInput && languageInput != "Select All") {
+            await language.selectFromSpecificLanguage();
+        }
+        else if (userInput == languageInput && languageInput == "Select All") {
+            await language.selectAllLanguages();
+        } else {
+            await language.emptyResponse();
+        }
+    } catch(err) {
+        await language.emptyResponse();
+    }
+    
+
+    // Edit the city.data based on the input of the Rank Numberbox
+    if (isEmpty(rankInput)) {
+        rankInput = 0;
+    } else {
+        // Filter city.data to only include the data within the rank range
+        language.data = language.data.filter(function(value, index, arr){
+            return index <= rankInput - 1;
+        });
+    }
+
+    res.render("language", {language:language, languageList:languageList});
+});
+
+app.post("/language-response", function(req, res) {
+    // Get the submitted value from the user
+    var params = req.body;
+
+    // Set a cookie based on each text-box input on the Country Page
+    res.cookie('languageLanguageInput', params.languageLanguageInput);
+    res.cookie('rankLanguageInput', params.rankLanguageInput);
+    
+    // After setting the cookie, redirect to the 'population' endpoint
+    res.redirect('/language');
+});
+
 app.post("/population-response", function(req, res) {
     // Get the submitted value from the user
     var params = req.body;
 
     // Set a cookie based on each text-box input on the Country Page
     res.cookie('countryPopulationInput', params.countryPopulationInput);
-    res.cookie('continentPopulationInput', params.continentPopulationInput);
     res.cookie('regionPopulationInput', params.regionPopulationInput);
+    res.cookie('continentPopulationInput', params.continentPopulationInput);
     
     // After setting the cookie, redirect to the 'population' endpoint
     res.redirect('/population');

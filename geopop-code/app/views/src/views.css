@@ -141,6 +141,30 @@ nav {
 }
 
 /* Detail the content within the banner of the Population Page */
+#languageBanner {
+    position: relative; 
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.651), rgba(66, 55, 161, 0.342)), url(../images/language-banner5.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    background-position: 50% 84%;
+    /*border: 5px solid black;*/
+    opacity: .9;
+    z-index: 1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+#languageBannerHeader {
+    font-family: Oswald;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Detail the content within the banner of the Population Page */
 #populationBanner {
     position: relative; 
     background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.651), rgba(55, 123, 161, 0.342)), url(../images/population-banner3.png);
@@ -289,6 +313,15 @@ nav {
 }
 
 
+.languageTable {
+    width: 90%;
+    height: 405px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 0;
+    margin-left: 25px;  
+}
+
 .populationTable {
     width: 90%;
     height: 405px;
@@ -379,6 +412,11 @@ th{
     margin: -25px 235px;
 }
 
+.languageToggle {
+    position: absolute;
+    margin: -25px 275px;
+}
+
 .fa-caret-down{
     transition: ease-in-out 0.25s;
 }
@@ -431,6 +469,16 @@ body #tableData:hover {
 }
 
 /* Form formatting */
+
+.languageForm {
+    display: flex;
+    justify-content: center;
+    /*margin: 125px;*/
+    position:relative;
+    margin: 2.5rem;
+    margin-bottom: 20px;
+    margin-left: 80px; 
+}
 
 .populationForm {
     display: flex;
