@@ -166,7 +166,7 @@ app.get("/city", async function(req, res) {
             await city.selectDistricts();
         } else {
             await city.emptyResponse();
-        }
+        } 
     } catch(err) {
         await city.emptyResponse();
     }
@@ -257,6 +257,7 @@ app.get("/country", async function(req, res) {
     } catch(err) {
         await country.emptyResponse();
     }
+
     
     // Edit the city.data based on the input of the Rank Numberbox
     if (isEmpty(rankInput)) {
@@ -267,6 +268,7 @@ app.get("/country", async function(req, res) {
             return index <= rankInput - 1;
         });
     }
+    
     // Render the 'city' page and pass some data into the page
     res.render("country", {country:country, countryList:countryList, 
         continentList:continentList, regionList:regionList});
@@ -327,23 +329,27 @@ app.get("/capital-city", async function(req, res) {
     // Create an object for the city table data
     var capitalCity = new CapitalCity(userInput);
 
-    if (userInput == '') {
-        await capitalCity.emptyResponse();
-    } else if (userInput == capCityInput && capCityInput == "Select All") {
-        await capitalCity.selectAllCapitalCities();
-    // If the input was within the Capital City Textbox
-    } else if (userInput == capCityInput && capCityInput != "Select All") {
-        await capitalCity.selectSpecificCapitalCity();
-    // If the input was within the Continent Textbox
-    } else if (userInput == continentInput) {
-        await capitalCity.selectCapitalCitiesFromContinent();
-    // If the input was within the Region Textbox
-    } else if (userInput == regionInput) {
-        await capitalCity.selectCapitalCitiesFromRegion();
-    } else {
+    try {
+        if (userInput == '') {
+            await capitalCity.emptyResponse();
+        } else if (userInput == capCityInput && capCityInput == "Select All") {
+            await capitalCity.selectAllCapitalCities();
+        // If the input was within the Capital City Textbox
+        } else if (userInput == capCityInput && capCityInput != "Select All") {
+            await capitalCity.selectSpecificCapitalCity();
+        // If the input was within the Continent Textbox
+        } else if (userInput == continentInput) {
+            await capitalCity.selectCapitalCitiesFromContinent();
+        // If the input was within the Region Textbox
+        } else if (userInput == regionInput) {
+            await capitalCity.selectCapitalCitiesFromRegion();
+        } else {
+            await capitalCity.emptyResponse();
+        }
+    } catch(err) {
         await capitalCity.emptyResponse();
     }
-
+    
     // Edit the city.data based on the input of the Rank Numberbox
     if (isEmpty(rankInput)) {
         rankInput = 0;
@@ -397,6 +403,7 @@ app.get("/population", async function(req, res) {
     var countryInput = cookies['countryPopulationInput'];
     var continentInput = cookies['continentPopulationInput'];
     var regionInput = cookies['regionPopulationInput'];
+    var rankInput = cookies['rankPopulationInput'];
 
     // Initialize a list that contains all potential input from textboxes
     var checkTextboxes = [countryInput, continentInput, regionInput];
@@ -416,23 +423,42 @@ app.get("/population", async function(req, res) {
     try {
         if (userInput == '') {
             await population.emptyResponse();
+        } else if (userInput == countryInput && countryInput == "Select All") {
+            await population.getAllCountryPopulationData();
+            header = "Country";
         // If the input was within the Country Textbox
-        } else if (userInput == countryInput) {
-            await population.getCountryPopulationData();
+        } else if (userInput == countryInput && countryInput != "Select All") {
+            await population.getSpecificCountryPopulationData();
             header = "Country";
         // If the input was within the Region Textbox
-        } else if (userInput == regionInput) {
-            await population.getRegionPopulationData();
+        } else if (userInput == regionInput && regionInput != "Select All") {
+            await population.getSpecificRegionPopulationData();
+            header = "Region";
+        } else if (userInput == regionInput && regionInput == "Select All") {
+            await population.getAllRegionPopulationData();
             header = "Region";
         // If the input was within the Continent Textbox
-        } else if (userInput == continentInput) {
-            await population.getContinentPopulationData();
+        } else if (userInput == continentInput && continentInput != "Select All") {
+            await population.getSpecificContinentPopulationData();
+            header = "Continent";
+        } else if (userInput == continentInput && continentInput == "Select All") {
+            await population.getAllContinentPopulationData();
             header = "Continent";
         } else {
             await population.emptyResponse();
         }
     } catch(err) {
         await population.emptyResponse();
+    }
+
+    // Edit the population.data based on the input of the Rank Numberbox
+    if (isEmpty(rankInput)) {
+        rankInput = 0;
+    } else {
+        // Filter population.data to only include the data within the rank range
+        population.data = population.data.filter(function(value, index, arr){
+            return index <= rankInput - 1;
+        });
     }
     
     res.render("population", {population:population, header:header, countryList:countryList, 
@@ -472,14 +498,14 @@ app.get("/language", async function(req, res) {
     // Create an object for the language table data
     var language = new Language(userInput);
 
+    // Get the corresponding input
     try {
         if (userInput == '') {
             await language.emptyResponse();
         // If the input was within the Country Textbox
         } else if (userInput == languageInput && languageInput != "Select All") {
             await language.selectFromSpecificLanguage();
-        }
-        else if (userInput == languageInput && languageInput == "Select All") {
+        } else if (userInput == languageInput && languageInput == "Select All") {
             await language.selectAllLanguages();
         } else {
             await language.emptyResponse();
@@ -488,7 +514,6 @@ app.get("/language", async function(req, res) {
         await language.emptyResponse();
     }
     
-
     // Edit the city.data based on the input of the Rank Numberbox
     if (isEmpty(rankInput)) {
         rankInput = 0;
@@ -498,7 +523,6 @@ app.get("/language", async function(req, res) {
             return index <= rankInput - 1;
         });
     }
-
     res.render("language", {language:language, languageList:languageList});
 });
 
@@ -522,6 +546,7 @@ app.post("/population-response", function(req, res) {
     res.cookie('countryPopulationInput', params.countryPopulationInput);
     res.cookie('regionPopulationInput', params.regionPopulationInput);
     res.cookie('continentPopulationInput', params.continentPopulationInput);
+    res.cookie('rankPopulationInput', params.rankPopulationInput);
     
     // After setting the cookie, redirect to the 'population' endpoint
     res.redirect('/population');

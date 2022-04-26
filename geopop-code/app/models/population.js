@@ -25,7 +25,7 @@ class Population {
         this.data.push(rowDict);
     }
 
-    async getCountryPopulationData() {
+    async getSpecificCountryPopulationData() {
         // Construct a query to receive the Country name, population, population living 
         // in city an not living in city
         var sql = "SELECT country.Name AS Name, country.Population AS TotalPop, \
@@ -52,7 +52,7 @@ class Population {
         }
     }
 
-    async getRegionPopulationData() {
+    async getSpecificRegionPopulationData() {
         // Construct a query to receive the Region name, population, population living 
         // in city an not living in city
         var sql = "SELECT country.Region AS Name, SUM(DISTINCT country.Population) AS TotalPop, \
@@ -79,7 +79,7 @@ class Population {
         }
     }
 
-    async getContinentPopulationData() {
+    async getSpecificContinentPopulationData() {
         // Construct a query to receive the Continent name, population, population living 
         // in city an not living in city
         var sql = "SELECT country.Continent AS Name, SUM(DISTINCT country.Population) AS TotalPop, \
@@ -105,6 +105,88 @@ class Population {
             this.data.push(rowDict);
         }
     }
+
+    async getAllContinentPopulationData() {
+        // Construct a query to receive the Continent name, population, population living 
+        // in city an not living in city
+        var sql = "SELECT country.Continent AS Name, SUM(DISTINCT country.Population) AS TotalPop, \
+        SUM(DISTINCT city.Population) AS InCityPop, ROUND((SUM(DISTINCT city.Population) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS InCityPercent, SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population) \
+        AS OutCityPop, ROUND(((SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population)) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS OutCityPercent FROM country, city WHERE country.Code = city.CountryCode \
+        GROUP BY country.Continent ORDER BY TotalPop DESC";
+
+        // Receive the results and store them inside a variable
+        const results = await db.query(sql);
+        
+        for (var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            rowDict["Name"] = row.Name;
+            rowDict["TotalPop"] = row.TotalPop;
+            rowDict["InCityPop"] = row.InCityPop;
+            rowDict["InCityPercent"] = row.InCityPercent;
+            rowDict["OutCityPop"] = row.OutCityPop;
+            rowDict["OutCityPercent"] = row.OutCityPercent;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
+    async getAllRegionPopulationData() {
+        // Construct a query to receive the Continent name, population, population living 
+        // in city an not living in city
+        var sql = "SELECT country.Region AS Name, SUM(DISTINCT country.Population) AS TotalPop, \
+        SUM(DISTINCT city.Population) AS InCityPop, ROUND((SUM(DISTINCT city.Population) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS InCityPercent, SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population) \
+        AS OutCityPop, ROUND(((SUM(DISTINCT country.Population) - SUM(DISTINCT city.Population)) / SUM(DISTINCT country.Population)) * 100.0, 2) \
+        AS OutCityPercent FROM country, city WHERE country.Code = city.CountryCode \
+        GROUP BY country.Region ORDER BY TotalPop DESC";
+
+        // Receive the results and store them inside a variable
+        const results = await db.query(sql, [this.response]);
+        
+        for (var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            rowDict["Name"] = row.Name;
+            rowDict["TotalPop"] = row.TotalPop;
+            rowDict["InCityPop"] = row.InCityPop;
+            rowDict["InCityPercent"] = row.InCityPercent;
+            rowDict["OutCityPop"] = row.OutCityPop;
+            rowDict["OutCityPercent"] = row.OutCityPercent;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
+    async getAllCountryPopulationData() {
+        // Construct a query to receive the Country name, population, population living 
+        // in city an not living in city
+        var sql = "SELECT country.Name AS Name, country.Population AS TotalPop, \
+        SUM(city.Population) AS InCityPop, ROUND((SUM(city.Population) / country.Population) * 100.0, 2) \
+        AS InCityPercent, country.Population - SUM(city.Population) AS OutCityPop, \
+        ROUND(((country.Population - SUM(city.Population)) / country.Population) * 100.0, 2) AS OutCityPercent \
+        FROM city, country WHERE country.Code = city.CountryCode \
+        GROUP BY country.Name, country.Population ORDER BY TotalPop DESC";
+
+        // Receive the results and store them inside a variable
+        const results = await db.query(sql);
+        
+        for (var row of results) {
+            // Initialize a dictionary to store values
+            var rowDict = {};
+            rowDict["Name"] = row.Name;
+            rowDict["TotalPop"] = row.TotalPop;
+            rowDict["InCityPop"] = row.InCityPop;
+            rowDict["InCityPercent"] = row.InCityPercent;
+            rowDict["OutCityPop"] = row.OutCityPop;
+            rowDict["OutCityPercent"] = row.OutCityPercent;
+            // For each iteration, add the new rowDict into the data array
+            this.data.push(rowDict);
+        }
+    }
+
 }
 
 module.exports = {

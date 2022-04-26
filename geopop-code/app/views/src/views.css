@@ -402,6 +402,11 @@ th{
     margin: -25px 190px;
 }
 
+.populationToggle {
+    position: absolute;
+    margin: -25px 140px;
+}
+
 .countryToggle {
     position: absolute;
     margin: -25px 150px;

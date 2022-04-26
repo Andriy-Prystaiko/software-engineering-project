@@ -95,7 +95,6 @@ block content
                         div(class="countryToggle" id="caretDown")
                             i(class="fa fa-caret-down" aria-hidden="true" id="icon")
                     th Capital
-            
             <!-- Add the Results from the City Response -->
             tbody
                 for element in country.data
@@ -106,7 +105,7 @@ block content
                         td #{element.Region}
                         td #{element.Population}
                         td #{element.Capital}
-
+    
     div(class="spaceSeparation")
     footer(class="footerDistributed")
         div(class="footerLeft")
